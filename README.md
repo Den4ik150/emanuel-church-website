@@ -1,6 +1,3 @@
-# emanuel-church-website
-Web application for local baptist church in Balti
-
 # Church Website Project README
 
 ## 1. Project Overview
@@ -425,6 +422,26 @@ MVP should avoid:
 * Reason: keeps MVP focused while preserving scalability.
 
 ## 11. Change Log
+
+### Session Update 002
+
+* Confirmed development environment setup on macOS for Visual Studio Code workflow.
+* Confirmed installation of core local development tools:
+
+  * Homebrew
+  * Node.js
+  * npm
+  * pnpm
+  * Git
+  * PostgreSQL
+  * Visual Studio Code
+  * recommended VS Code extensions
+* Confirmed GitHub repository has already been created.
+* Confirmed project workflow will use GitHub repository + local Git checkpoints.
+* Confirmed GitLens is not required for the workflow.
+* Next step: initialize the Next.js project locally and connect it to the existing GitHub repository.
+
+## 12. Next Required Input
 
 ### Initial Entry
 
@@ -1380,8 +1397,54 @@ The immediate next work items are:
 1. Freeze this blueprint as the working architecture baseline
 2. Create the first implementation checklist for Stage 2
 3. Start project bootstrap only after README is aligned with this architecture
+4. Initialize the local Next.js project
+5. Connect the local project to the already created GitHub repository
+6. Create the first safe project checkpoint
 
-## 16. Status of Unresolved Questions
+## 16. Session Log
+
+### Session 001 — Planning and Scope Definition
+
+* Goal:
+
+  * define product scope, architecture direction, and documentation process
+* Result:
+
+  * product requirements captured
+  * architecture blueprint captured
+  * README established as the single source of truth
+* Status:
+
+  * completed
+
+### Session 002 — Local Development Environment Preparation
+
+* Goal:
+
+  * prepare macOS development environment for fullstack project work in Visual Studio Code
+* Confirmed setup:
+
+  * Homebrew installed
+  * Node.js installed
+  * npm installed
+  * pnpm installed
+  * Git installed
+  * PostgreSQL installed
+  * Visual Studio Code installed
+  * useful VS Code extensions installed
+  * GitHub repository created
+* Notes:
+
+  * GitLens is not required
+  * development will proceed with standard Git + GitHub workflow
+* Next step:
+
+  * bootstrap local Next.js project and connect it to GitHub repository
+* Commit/checkpoint reference:
+
+  * pending local project initialization
+
+## 17. Status of Unresolved Questions
 
 * Church branding not defined
 * Final database entities not defined
