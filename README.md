@@ -1,4 +1,4 @@
-# emanuel_church_website
+# emmanuil-church-website
 Web application for local baptist church in Balti
 
 # Church Website Project README
