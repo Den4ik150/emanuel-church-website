@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Calendar, Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
