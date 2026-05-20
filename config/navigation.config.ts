@@ -25,4 +25,5 @@ export const adminNavItems: NavItem[] = [
   { label: "Галерея", href: "/admin/gallery" },
   { label: "Обращения", href: "/admin/submissions" },
   { label: "Настройки", href: "/admin/settings" },
+  { label: "Аккаунт", href: "/admin/account" },
 ];

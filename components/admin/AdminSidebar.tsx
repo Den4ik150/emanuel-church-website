@@ -15,6 +15,7 @@ import {
   Image,
   MessageSquare,
   Settings,
+  UserCog,
   LogOut,
 } from "lucide-react";
 
@@ -28,6 +29,7 @@ const iconMap: Record<string, React.ElementType> = {
   "/admin/gallery": Image,
   "/admin/submissions": MessageSquare,
   "/admin/settings": Settings,
+  "/admin/account": UserCog,
 };
 
 export function AdminSidebar() {
