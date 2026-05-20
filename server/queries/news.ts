@@ -9,3 +9,10 @@ export async function getAllNews() {
 export async function getNewsById(id: string) {
   return prisma.newsPost.findUnique({ where: { id } });
 }
+
+export async function getPublishedNews() {
+  return prisma.newsPost.findMany({
+    where: { isPublished: true },
+    orderBy: { publishedAt: "desc" },
+  });
+}

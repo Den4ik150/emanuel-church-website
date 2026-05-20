@@ -1,21 +1,26 @@
 import Link from "next/link";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
-import { MapPin, Clock, Phone, Instagram, Send, Youtube } from "lucide-react";
+import { MapPin, Clock, Phone, Instagram, Send, Youtube, PlayCircle, Calendar } from "lucide-react";
+import { getUpcomingEvents } from "@/server/queries/events";
+import { getRecentSermons } from "@/server/queries/sermons";
 
-const upcomingEvents = [
-  { title: "Воскресное богослужение", date: "25 мая 2025", time: "10:00", topic: "Богослужение" },
-  { title: "Молодёжное собрание", date: "30 мая 2025", time: "18:00", topic: "Молодёжь" },
-  { title: "Домашняя группа", date: "28 мая 2025", time: "19:00", topic: "Группы" },
-];
+function formatDate(date: Date) {
+  return date.toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
-const recentSermons = [
-  { title: "Сила молитвы", preacher: "Пастор Иван", date: "18 мая 2025", topic: "Молитва" },
-  { title: "Вера, которая двигает горы", preacher: "Пастор Иван", date: "11 мая 2025", topic: "Вера" },
-  { title: "Благодать для каждого", preacher: "Диакон Сергей", date: "4 мая 2025", topic: "Благодать" },
-];
+export default async function HomePage() {
+  const [upcomingEvents, recentSermons] = await Promise.all([
+    getUpcomingEvents(3),
+    getRecentSermons(3),
+  ]);
 
-export default function HomePage() {
+  const nextEvent = upcomingEvents[0] ?? null;
+
   return (
     <>
       {/* Hero */}
@@ -30,8 +35,8 @@ export default function HomePage() {
                 Добро пожаловать
               </h1>
               <p className="mb-8 text-lg leading-relaxed text-gray-400">
-                Место, где вы найдёте живую веру, настоящее общение и Слово Божье.
-                Мы рады видеть вас среди нас.
+                Место, где вы найдёте живую веру, настоящее общение и Слово
+                Божье. Мы рады видеть вас среди нас.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
@@ -52,24 +57,30 @@ export default function HomePage() {
         </Container>
       </div>
 
-      {/* Next Service */}
+      {/* Next Service / Next Event */}
       <div className="border-b border-gray-100 bg-white">
         <Container>
           <div className="py-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
-                  Ближайшее богослужение
+                  {nextEvent ? "Ближайшее мероприятие" : "Ближайшее богослужение"}
                 </p>
-                <p className="mt-1 text-xl font-bold text-gray-900">Воскресенье, 25 мая · 10:00</p>
+                <p className="mt-1 text-xl font-bold text-gray-900">
+                  {nextEvent
+                    ? `${nextEvent.title} · ${formatDate(nextEvent.eventDate)}`
+                    : "Воскресенье · 10:00"}
+                </p>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <MapPin className="h-4 w-4 text-gold" />
-                <span>г. Бельцы, ул. Placeholder, 1</span>
+                <span>
+                  {nextEvent?.location ?? "г. Бельцы, Молдова"}
+                </span>
               </div>
               <Link
                 href="/schedule"
-                className="text-sm font-medium text-gold hover:text-gold-dark transition-colors"
+                className="text-sm font-medium text-gold transition-colors hover:text-gold-dark"
               >
                 Полное расписание →
               </Link>
@@ -89,22 +100,23 @@ export default function HomePage() {
               <h2 className="mb-4 text-3xl font-bold text-gray-900">
                 Церковь Эммануил
               </h2>
-              <p className="mb-4 text-gray-600 leading-relaxed">
-                Мы — христианская церковь в городе Бельцы, Молдова. Наш русский поток объединяет
-                людей разных возрастов, которые ищут Бога и хотят жить по Его слову.
+              <p className="mb-4 leading-relaxed text-gray-600">
+                Мы — христианская церковь в городе Бельцы, Молдова. Наш русский
+                поток объединяет людей разных возрастов, которые ищут Бога и
+                хотят жить по Его слову.
               </p>
-              <p className="mb-6 text-gray-600 leading-relaxed">
-                Каждое воскресенье мы собираемся для совместного поклонения, изучения Библии
-                и общения. Приходите — мы вас ждём.
+              <p className="mb-6 leading-relaxed text-gray-600">
+                Каждое воскресенье мы собираемся для совместного поклонения,
+                изучения Библии и общения. Приходите — мы вас ждём.
               </p>
               <Link
                 href="/about"
-                className="text-sm font-semibold text-gold hover:text-gold-dark transition-colors"
+                className="text-sm font-semibold text-gold transition-colors hover:text-gold-dark"
               >
                 Узнать больше →
               </Link>
             </div>
-            <div className="aspect-video rounded-xl bg-gray-100 flex items-center justify-center">
+            <div className="flex aspect-video items-center justify-center rounded-xl bg-gray-100">
               <p className="text-sm text-gray-400">Фото церкви</p>
             </div>
           </div>
@@ -120,26 +132,54 @@ export default function HomePage() {
                 <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-gold">
                   Мероприятия
                 </p>
-                <h2 className="text-2xl font-bold text-gray-900">Ближайшие события</h2>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Ближайшие события
+                </h2>
               </div>
-              <Link href="/events" className="text-sm font-medium text-gold hover:text-gold-dark transition-colors">
+              <Link
+                href="/events"
+                className="text-sm font-medium text-gold transition-colors hover:text-gold-dark"
+              >
                 Все события →
               </Link>
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {upcomingEvents.map((event) => (
-                <div key={event.title} className="rounded-xl border border-gray-200 bg-white p-6">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
-                    {event.topic}
-                  </p>
-                  <h3 className="mb-3 font-semibold text-gray-900">{event.title}</h3>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <Clock className="h-4 w-4" />
-                    <span>{event.date} · {event.time}</span>
+
+            {upcomingEvents.length === 0 ? (
+              <p className="text-sm text-gray-400">
+                В ближайшее время мероприятий не запланировано
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {upcomingEvents.map((event) => (
+                  <div
+                    key={event.id}
+                    className="rounded-xl border border-gray-200 bg-white p-6"
+                  >
+                    {event.isFeatured && (
+                      <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
+                        Важное
+                      </p>
+                    )}
+                    <h3 className="mb-3 font-semibold text-gray-900">
+                      {event.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Calendar className="h-4 w-4 text-gold" />
+                      <span>
+                        {formatDate(event.eventDate)}
+                        {event.eventTimeLabel && ` · ${event.eventTimeLabel}`}
+                      </span>
+                    </div>
+                    {event.location && (
+                      <div className="mt-1.5 flex items-center gap-2 text-sm text-gray-500">
+                        <MapPin className="h-4 w-4 text-gold" />
+                        <span>{event.location}</span>
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </Container>
         </Section>
       </div>
@@ -152,26 +192,59 @@ export default function HomePage() {
               <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-gold">
                 Проповеди
               </p>
-              <h2 className="text-2xl font-bold text-gray-900">Последние проповеди</h2>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Последние проповеди
+              </h2>
             </div>
-            <Link href="/sermons" className="text-sm font-medium text-gold hover:text-gold-dark transition-colors">
+            <Link
+              href="/sermons"
+              className="text-sm font-medium text-gold transition-colors hover:text-gold-dark"
+            >
               Все проповеди →
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {recentSermons.map((sermon) => (
-              <div key={sermon.title} className="group rounded-xl border border-gray-200 p-6 hover:border-gold/40 transition-colors">
-                <div className="mb-3 aspect-video rounded-lg bg-gray-100 flex items-center justify-center">
-                  <p className="text-xs text-gray-400">Превью видео</p>
-                </div>
-                <p className="mb-1 text-xs font-medium uppercase tracking-widest text-gold">
-                  {sermon.topic}
-                </p>
-                <h3 className="mb-1 font-semibold text-gray-900">{sermon.title}</h3>
-                <p className="text-sm text-gray-500">{sermon.preacher} · {sermon.date}</p>
-              </div>
-            ))}
-          </div>
+
+          {recentSermons.length === 0 ? (
+            <p className="text-sm text-gray-400">
+              Проповеди скоро появятся
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {recentSermons.map((sermon) => (
+                <a
+                  key={sermon.id}
+                  href={sermon.videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-xl border border-gray-200 p-6 transition-colors hover:border-gold/40"
+                >
+                  <div className="mb-3 flex aspect-video items-center justify-center rounded-lg bg-gray-100">
+                    {sermon.thumbnailUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={sermon.thumbnailUrl}
+                        alt={sermon.title}
+                        className="h-full w-full rounded-lg object-cover"
+                      />
+                    ) : (
+                      <PlayCircle className="h-8 w-8 text-gray-300 group-hover:text-gold transition-colors" />
+                    )}
+                  </div>
+                  {sermon.topic && (
+                    <p className="mb-1 text-xs font-medium uppercase tracking-widest text-gold">
+                      {sermon.topic}
+                    </p>
+                  )}
+                  <h3 className="mb-1 font-semibold text-gray-900">
+                    {sermon.title}
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    {sermon.preacher} · {formatDate(sermon.sermonDate)}
+                  </p>
+                </a>
+              ))}
+            </div>
+          )}
         </Container>
       </Section>
 
@@ -195,13 +268,25 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="#"
+                  aria-label="Instagram"
+                  className="text-gray-400 transition-colors hover:text-white"
+                >
                   <Instagram className="h-5 w-5" />
                 </a>
-                <a href="#" aria-label="Telegram" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="#"
+                  aria-label="Telegram"
+                  className="text-gray-400 transition-colors hover:text-white"
+                >
                   <Send className="h-5 w-5" />
                 </a>
-                <a href="#" aria-label="YouTube" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="#"
+                  aria-label="YouTube"
+                  className="text-gray-400 transition-colors hover:text-white"
+                >
                   <Youtube className="h-5 w-5" />
                 </a>
               </div>
