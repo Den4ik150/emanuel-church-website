@@ -7,7 +7,7 @@ export const staticPageSchema = z.object({
   content: z.string().min(1, "Содержание обязательно"),
   seoTitle: z.string().optional(),
   seoDescription: z.string().optional(),
-  isPublished: z.boolean().default(false),
+  isPublished: z.boolean(),
 });
 
 export type StaticPageFormValues = z.infer<typeof staticPageSchema>;

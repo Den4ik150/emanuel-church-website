@@ -59,11 +59,12 @@ export default function AboutPage() {
                 <p className="text-xs text-gray-400">Фото</p>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Имя Фамилия</h3>
-                <p className="mb-3 text-sm text-gold">Пастор церкви</p>
+                <h3 className="text-lg font-semibold text-gray-900">Пастор церкви</h3>
+                <p className="mb-3 text-sm text-gold">Старший пастор</p>
                 <p className="leading-relaxed text-gray-600">
-                  Краткое описание пастора, его биография, призвание и служение.
-                  Этот текст будет заменён реальным содержимым через панель управления.
+                  На протяжении многих лет наш пастор несёт служение, объединяя людей вокруг
+                  Слова Божьего. Его проповеди отличаются глубиной и практичностью, а сердце
+                  всегда открыто для каждого.
                 </p>
               </div>
             </div>

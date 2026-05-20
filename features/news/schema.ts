@@ -6,7 +6,7 @@ export const newsSchema = z.object({
   excerpt: z.string().optional(),
   content: z.string().min(1, "Содержание обязательно"),
   coverImageUrl: z.string().optional(),
-  isPublished: z.boolean().default(false),
+  isPublished: z.boolean(),
 });
 
 export type NewsFormValues = z.infer<typeof newsSchema>;

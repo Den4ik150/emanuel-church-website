@@ -9,7 +9,7 @@ export const scheduleSchema = z.object({
   location: z.string().optional(),
   description: z.string().optional(),
   displayOrder: z.string().optional(),
-  isActive: z.boolean().default(true),
+  isActive: z.boolean(),
 });
 
 export type ScheduleFormValues = z.infer<typeof scheduleSchema>;

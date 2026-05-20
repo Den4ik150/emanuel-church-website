@@ -1,6 +1,8 @@
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
 import { MapPin, Phone, Mail, Instagram, Send, Youtube } from "lucide-react";
+import { ContactForm } from "@/features/contacts/ContactForm";
+import { PrayerRequestForm } from "@/features/prayer-requests/PrayerRequestForm";
 
 export default function ContactsPage() {
   return (
@@ -17,6 +19,7 @@ export default function ContactsPage() {
         </Container>
       </div>
 
+      {/* Contact info + contact form */}
       <Section>
         <Container>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
@@ -31,7 +34,7 @@ export default function ContactsPage() {
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">Адрес</p>
-                      <p className="text-sm text-gray-600">г. Бельцы, ул. Placeholder, 1, Молдова</p>
+                      <p className="text-sm text-gray-600">г. Бельцы, ул. Пушкина, 1, Молдова</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -40,7 +43,7 @@ export default function ContactsPage() {
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">Телефон</p>
-                      <p className="text-sm text-gray-600">+373 — — — — — —</p>
+                      <p className="text-sm text-gray-600">+373 231 00 000</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -49,7 +52,7 @@ export default function ContactsPage() {
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">Email</p>
-                      <p className="text-sm text-gray-600">emmanuil@example.com</p>
+                      <p className="text-sm text-gray-600">info@emmanuil.md</p>
                     </div>
                   </div>
                 </div>
@@ -58,20 +61,32 @@ export default function ContactsPage() {
               <div>
                 <h3 className="mb-3 font-semibold text-gray-900">Социальные сети</h3>
                 <div className="flex gap-4">
-                  <a href="#" aria-label="Instagram" className="flex items-center gap-2 text-sm text-gray-600 hover:text-gold transition-colors">
+                  <a
+                    href="#"
+                    aria-label="Instagram"
+                    className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gold"
+                  >
                     <Instagram className="h-5 w-5" /> Instagram
                   </a>
-                  <a href="#" aria-label="Telegram" className="flex items-center gap-2 text-sm text-gray-600 hover:text-gold transition-colors">
+                  <a
+                    href="#"
+                    aria-label="Telegram"
+                    className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gold"
+                  >
                     <Send className="h-5 w-5" /> Telegram
                   </a>
-                  <a href="#" aria-label="YouTube" className="flex items-center gap-2 text-sm text-gray-600 hover:text-gold transition-colors">
+                  <a
+                    href="#"
+                    aria-label="YouTube"
+                    className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gold"
+                  >
                     <Youtube className="h-5 w-5" /> YouTube
                   </a>
                 </div>
               </div>
 
               {/* Map placeholder */}
-              <div className="aspect-video w-full rounded-xl bg-gray-100 flex items-center justify-center border border-gray-200">
+              <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-gray-200 bg-gray-100">
                 <div className="text-center">
                   <MapPin className="mx-auto mb-2 h-8 w-8 text-gray-300" />
                   <p className="text-sm text-gray-400">Карта будет добавлена</p>
@@ -82,50 +97,34 @@ export default function ContactsPage() {
             {/* Contact form */}
             <div>
               <h2 className="mb-5 text-xl font-bold text-gray-900">Напишите нам</h2>
-              <form className="space-y-4">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">Ваше имя</label>
-                  <input
-                    type="text"
-                    placeholder="Иван Иванов"
-                    className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gold focus:ring-1 focus:ring-gold"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
-                  <input
-                    type="email"
-                    placeholder="ivan@example.com"
-                    className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gold focus:ring-1 focus:ring-gold"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">Телефон (необязательно)</label>
-                  <input
-                    type="tel"
-                    placeholder="+373 000 000 00"
-                    className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gold focus:ring-1 focus:ring-gold"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">Сообщение</label>
-                  <textarea
-                    rows={5}
-                    placeholder="Ваше сообщение..."
-                    className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gold focus:ring-1 focus:ring-gold resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full rounded-md bg-gold px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-gold-dark"
-                >
-                  Отправить сообщение
-                </button>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </Container>
       </Section>
+
+      {/* Prayer request section */}
+      <div className="bg-gray-50">
+        <Section>
+          <Container>
+            <div className="mx-auto max-w-2xl">
+              <div className="mb-8 text-center">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
+                  Молитва
+                </p>
+                <h2 className="text-2xl font-bold text-gray-900">Молитвенная просьба</h2>
+                <p className="mt-3 text-gray-500">
+                  Мы верим в силу молитвы. Оставьте свою просьбу — пасторская команда будет
+                  молиться вместе с вами.
+                </p>
+              </div>
+              <div className="rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
+                <PrayerRequestForm />
+              </div>
+            </div>
+          </Container>
+        </Section>
+      </div>
     </>
   );
 }

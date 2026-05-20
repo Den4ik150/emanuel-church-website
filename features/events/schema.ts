@@ -8,8 +8,8 @@ export const eventSchema = z.object({
   eventTimeLabel: z.string().optional(),
   location: z.string().optional(),
   imageUrl: z.string().optional(),
-  isFeatured: z.boolean().default(false),
-  isPublished: z.boolean().default(false),
+  isFeatured: z.boolean(),
+  isPublished: z.boolean(),
 });
 
 export type EventFormValues = z.infer<typeof eventSchema>;

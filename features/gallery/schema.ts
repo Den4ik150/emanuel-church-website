@@ -6,7 +6,7 @@ export const galleryAlbumSchema = z.object({
   description: z.string().optional(),
   albumDate: z.string().optional(),
   coverImageUrl: z.string().optional(),
-  isPublished: z.boolean().default(false),
+  isPublished: z.boolean(),
 });
 
 export type GalleryAlbumFormValues = z.infer<typeof galleryAlbumSchema>;

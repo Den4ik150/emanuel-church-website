@@ -4,7 +4,7 @@ import { Section } from "@/components/shared/Section";
 import { Clock, MapPin, Heart, MessageCircle } from "lucide-react";
 
 const steps = [
-  { icon: MapPin, title: "Найдите нас", description: "Мы находимся по адресу: г. Бельцы, ул. Placeholder, 1. Парковка доступна рядом." },
+  { icon: MapPin, title: "Найдите нас", description: "Мы находимся по адресу: г. Бельцы, ул. Пушкина, 1. Парковка доступна рядом." },
   { icon: Clock, title: "Приходите вовремя", description: "Богослужение начинается в 10:00 по воскресеньям. Рекомендуем прийти чуть раньше." },
   { icon: Heart, title: "Будьте собой", description: "Дресс-кода нет. Никаких ожиданий. Просто приходите и посмотрите, что мы из себя представляем." },
   { icon: MessageCircle, title: "Познакомьтесь с нами", description: "После богослужения у вас будет возможность пообщаться с людьми и задать любые вопросы." },
