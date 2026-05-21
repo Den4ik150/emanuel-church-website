@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Images } from "lucide-react";
 import { getAllAlbums } from "@/server/queries/gallery";
 import { getAdminStream } from "@/lib/admin-stream";
 import { getAdminT } from "@/lib/translations/admin";
@@ -57,6 +58,13 @@ export default async function AdminGalleryPage() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
+                      <Link
+                        href={`/admin/gallery/${album.id}/items`}
+                        className="inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-xs font-medium text-gold transition-colors hover:bg-gold/10"
+                      >
+                        <Images className="h-3.5 w-3.5" />
+                        {t.gallery.colPhotos}
+                      </Link>
                       <LockedEditLink href={`/admin/gallery/${album.id}/edit`} itemStream={album.stream} adminStream={adminStream} label={t.common.edit} />
                       <LockedDeleteButton itemStream={album.stream} adminStream={adminStream} deleteAction={deleteAlbum.bind(null, album.id)} confirmText={t.gallery.confirmDelete} label={t.common.delete} />
                     </div>
