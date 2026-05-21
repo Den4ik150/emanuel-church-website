@@ -14,6 +14,15 @@ function formatDate(date: Date | null, locale: string) {
   return date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
 }
 
+function getCoverThumb(url: string) {
+  if (url.includes("/video/upload/")) {
+    return url
+      .replace("/video/upload/", "/video/upload/so_2,w_800,h_450,c_fill/")
+      .replace(/\.mp4$/, ".jpg");
+  }
+  return url;
+}
+
 export default async function NewsPage({ params }: { params: Promise<{ stream: string }> }) {
   const { stream } = await params;
   if (!isValidStream(stream)) notFound();
@@ -42,12 +51,21 @@ export default async function NewsPage({ params }: { params: Promise<{ stream: s
                   href={`/${stream}/news/${post.slug}`}
                   className="group overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gold/40"
                 >
-                  <div className="flex aspect-video items-center justify-center bg-gray-100">
+                  <div className="relative flex aspect-video items-center justify-center overflow-hidden bg-gray-100">
                     {post.coverImageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={post.coverImageUrl} alt={post.title} className="h-full w-full object-cover" />
+                      <img src={getCoverThumb(post.coverImageUrl)} alt={post.title} className="h-full w-full object-cover" />
                     ) : (
                       <p className="text-xs text-gray-400">{t.news.pageTitle}</p>
+                    )}
+                    {post.coverImageUrl?.includes("/video/upload/") && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black/50">
+                          <svg className="h-5 w-5 translate-x-0.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
                     )}
                   </div>
                   <div className="p-5">
