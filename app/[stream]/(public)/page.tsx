@@ -11,11 +11,11 @@ import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
 
 const HERO_IMAGE =
-  "https://res.cloudinary.com/dcml2gd8n/image/upload/v1779372225/emmanuil-church/hero/church-building.jpg";
+  "https://res.cloudinary.com/dcml2gd8n/image/upload/v1779380572/emmanuil-church/hero/church-exterior.jpg";
 
 const PASTOR_IMAGES: Record<string, string> = {
   ro: "https://res.cloudinary.com/dcml2gd8n/image/upload/v1779372223/emmanuil-church/people/pastor-ro.jpg",
-  ru: "", // will be added when RU pastor photo is uploaded
+  ru: "https://res.cloudinary.com/dcml2gd8n/image/upload/v1779380575/emmanuil-church/people/pastor-ru.jpg",
 };
 
 function formatDate(date: Date, locale: string) {
