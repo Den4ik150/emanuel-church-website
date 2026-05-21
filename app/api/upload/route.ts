@@ -3,8 +3,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/server/auth/config";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 
-export const config = { api: { bodyParser: false } };
-
 export async function POST(req: NextRequest) {
   // Auth check — only logged-in admins can upload
   const session = await getServerSession(authOptions);
