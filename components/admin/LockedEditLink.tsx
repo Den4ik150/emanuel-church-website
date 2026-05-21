@@ -8,9 +8,10 @@ interface Props {
   href: string;
   itemStream: "RO" | "RU";
   adminStream: "RO" | "RU" | null;
+  label?: string;
 }
 
-export function LockedEditLink({ href, itemStream, adminStream }: Props) {
+export function LockedEditLink({ href, itemStream, adminStream, label = "Изменить" }: Props) {
   const router = useRouter();
   const needsLock = adminStream !== null && adminStream !== itemStream;
 
@@ -20,7 +21,7 @@ export function LockedEditLink({ href, itemStream, adminStream }: Props) {
         href={href}
         className="rounded-md px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100"
       >
-        Изменить
+        {label}
       </Link>
     );
   }
@@ -30,7 +31,7 @@ export function LockedEditLink({ href, itemStream, adminStream }: Props) {
       itemStream={itemStream}
       adminStream={adminStream}
       onUnlocked={() => router.push(href)}
-      label="Изменить"
+      label={label}
       className="rounded-md px-3 py-1.5 text-xs font-medium text-amber-600 transition-colors hover:bg-amber-50 flex items-center gap-1"
     />
   );

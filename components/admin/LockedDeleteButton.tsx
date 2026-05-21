@@ -8,6 +8,7 @@ interface Props {
   adminStream: "RO" | "RU" | null;
   deleteAction: () => Promise<void>;
   confirmText?: string;
+  label?: string;
 }
 
 export function LockedDeleteButton({
@@ -15,6 +16,7 @@ export function LockedDeleteButton({
   adminStream,
   deleteAction,
   confirmText = "Удалить? Действие необратимо.",
+  label = "Удалить",
 }: Props) {
   const [isPending, startTransition] = useTransition();
 
@@ -28,7 +30,7 @@ export function LockedDeleteButton({
       itemStream={itemStream}
       adminStream={adminStream}
       onUnlocked={handleDelete}
-      label={isPending ? "..." : "Удалить"}
+      label={isPending ? "..." : label}
       className="rounded-md px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:opacity-50"
       destructive
     />

@@ -1,9 +1,11 @@
 import { getAllContactSubmissions, getAllPrayerRequests } from "@/server/queries/submissions";
 import { getAdminStream } from "@/lib/admin-stream";
+import { getAdminT } from "@/lib/translations/admin";
 import { StreamBadge } from "@/components/admin/StreamBadge";
 
 export default async function AdminSubmissionsPage() {
   const adminStream = await getAdminStream();
+  const t = getAdminT(adminStream);
 
   const [contacts, prayers] = await Promise.all([
     getAllContactSubmissions(adminStream ?? undefined),
@@ -13,30 +15,30 @@ export default async function AdminSubmissionsPage() {
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold text-gray-900">Обращения</h1>
+        <h1 className="text-2xl font-bold text-gray-900">{t.submissions.heading}</h1>
         {adminStream && <StreamBadge stream={adminStream} />}
       </div>
 
       {/* Contact Submissions */}
       <section>
         <h2 className="mb-3 text-base font-semibold text-gray-700">
-          Контактные формы ({contacts.length})
+          {t.submissions.contactsLabel} ({contacts.length})
         </h2>
         {contacts.length === 0 ? (
           <div className="rounded-xl border border-gray-200 bg-white p-8 text-center text-sm text-gray-500">
-            Обращений нет
+            {t.submissions.emptyContacts}
           </div>
         ) : (
           <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50">
-                  {!adminStream && <th className="px-4 py-3 text-left font-medium text-gray-600">Поток</th>}
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Имя</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Email</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Телефон</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Сообщение</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Дата</th>
+                  {!adminStream && <th className="px-4 py-3 text-left font-medium text-gray-600">{t.common.stream}</th>}
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colName}</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colEmail}</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colPhone}</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colMessage}</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colDate}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -47,7 +49,7 @@ export default async function AdminSubmissionsPage() {
                     <td className="px-4 py-3 text-gray-600">{c.email}</td>
                     <td className="px-4 py-3 text-gray-600">{c.phone ?? "—"}</td>
                     <td className="max-w-xs px-4 py-3 text-gray-600"><p className="truncate">{c.message}</p></td>
-                    <td className="px-4 py-3 text-gray-500">{c.createdAt.toLocaleDateString("ru-RU")}</td>
+                    <td className="px-4 py-3 text-gray-500">{c.createdAt.toLocaleDateString(t.common.locale)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -59,23 +61,23 @@ export default async function AdminSubmissionsPage() {
       {/* Prayer Requests */}
       <section>
         <h2 className="mb-3 text-base font-semibold text-gray-700">
-          Молитвенные просьбы ({prayers.length})
+          {t.submissions.prayersLabel} ({prayers.length})
         </h2>
         {prayers.length === 0 ? (
           <div className="rounded-xl border border-gray-200 bg-white p-8 text-center text-sm text-gray-500">
-            Просьб нет
+            {t.submissions.emptyPrayers}
           </div>
         ) : (
           <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50">
-                  {!adminStream && <th className="px-4 py-3 text-left font-medium text-gray-600">Поток</th>}
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Имя</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Email</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Просьба</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Приватно</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Дата</th>
+                  {!adminStream && <th className="px-4 py-3 text-left font-medium text-gray-600">{t.common.stream}</th>}
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colName}</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colEmail}</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colRequest}</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colPrivate}</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-600">{t.submissions.colDate}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -87,10 +89,10 @@ export default async function AdminSubmissionsPage() {
                     <td className="max-w-xs px-4 py-3 text-gray-600"><p className="truncate">{p.message}</p></td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${p.isPrivate ? "bg-amber-50 text-amber-700" : "bg-gray-100 text-gray-600"}`}>
-                        {p.isPrivate ? "Да" : "Нет"}
+                        {p.isPrivate ? t.submissions.yes : t.submissions.no}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-500">{p.createdAt.toLocaleDateString("ru-RU")}</td>
+                    <td className="px-4 py-3 text-gray-500">{p.createdAt.toLocaleDateString(t.common.locale)}</td>
                   </tr>
                 ))}
               </tbody>

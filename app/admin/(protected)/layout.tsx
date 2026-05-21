@@ -4,6 +4,7 @@ import { authOptions } from "@/server/auth/config";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminStreamSwitcher } from "@/components/admin/AdminStreamSwitcher";
 import { getAdminStream } from "@/lib/admin-stream";
+import { getAdminT } from "@/lib/translations/admin";
 
 export default async function ProtectedAdminLayout({
   children,
@@ -14,13 +15,14 @@ export default async function ProtectedAdminLayout({
   if (!session) redirect("/admin/login");
 
   const adminStream = await getAdminStream();
+  const t = getAdminT(adminStream);
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <AdminSidebar />
+      <AdminSidebar t={t} />
       <div className="flex flex-1 flex-col overflow-hidden">
         <header className="flex h-14 items-center justify-between border-b border-gray-200 bg-white px-6">
-          <AdminStreamSwitcher current={adminStream} />
+          <AdminStreamSwitcher current={adminStream} allLabel={t.switcher.all} />
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <div className="h-7 w-7 rounded-full bg-gold/20 flex items-center justify-center">
               <span className="text-xs font-semibold text-gold">

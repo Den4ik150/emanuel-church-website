@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getAdminStream } from "@/lib/admin-stream";
+import { getAdminT } from "@/lib/translations/admin";
 import { StreamBadge } from "@/components/admin/StreamBadge";
 import {
   BookOpen,
@@ -14,6 +15,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import type { Stream } from "@/lib/generated/prisma/client";
+import type { AdminTranslations } from "@/lib/translations/admin";
 
 async function getStats(stream: Stream | null) {
   const where = stream ? { stream } : undefined;
@@ -60,37 +62,42 @@ async function getRecentActivity(stream: Stream | null) {
   return { recentSermons, recentEvents, recentNews };
 }
 
-const sections = [
-  { label: "Проповеди", href: "/admin/sermons", icon: BookOpen, key: "sermons" as const, color: "bg-purple-50 text-purple-600" },
-  { label: "Мероприятия", href: "/admin/events", icon: Calendar, key: "events" as const, color: "bg-blue-50 text-blue-600" },
-  { label: "Новости", href: "/admin/news", icon: Newspaper, key: "news" as const, color: "bg-green-50 text-green-600" },
-  { label: "Расписание", href: "/admin/schedule", icon: Clock, key: "schedule" as const, color: "bg-orange-50 text-orange-600" },
-  { label: "Галерея", href: "/admin/gallery", icon: Images, key: "albums" as const, color: "bg-pink-50 text-pink-600" },
-  { label: "Страницы", href: "/admin/pages", icon: FileText, key: "pages" as const, color: "bg-gray-100 text-gray-600" },
-  { label: "Обращения", href: "/admin/submissions", icon: MessageSquare, key: "contacts" as const, color: "bg-amber-50 text-amber-600" },
-];
+function getSections(t: AdminTranslations) {
+  return [
+    { label: t.nav.sermons, href: "/admin/sermons", icon: BookOpen, key: "sermons" as const, color: "bg-purple-50 text-purple-600" },
+    { label: t.nav.events, href: "/admin/events", icon: Calendar, key: "events" as const, color: "bg-blue-50 text-blue-600" },
+    { label: t.nav.news, href: "/admin/news", icon: Newspaper, key: "news" as const, color: "bg-green-50 text-green-600" },
+    { label: t.nav.schedule, href: "/admin/schedule", icon: Clock, key: "schedule" as const, color: "bg-orange-50 text-orange-600" },
+    { label: t.nav.gallery, href: "/admin/gallery", icon: Images, key: "albums" as const, color: "bg-pink-50 text-pink-600" },
+    { label: t.nav.pages, href: "/admin/pages", icon: FileText, key: "pages" as const, color: "bg-gray-100 text-gray-600" },
+    { label: t.nav.submissions, href: "/admin/submissions", icon: MessageSquare, key: "contacts" as const, color: "bg-amber-50 text-amber-600" },
+  ];
+}
 
-function formatDate(date: Date) {
-  return date.toLocaleDateString("ru-RU", { day: "numeric", month: "short" });
+function formatDate(date: Date, locale: string) {
+  return date.toLocaleDateString(locale, { day: "numeric", month: "short" });
 }
 
 export default async function AdminDashboardPage() {
   const adminStream = await getAdminStream();
+  const t = getAdminT(adminStream);
   const [stats, activity] = await Promise.all([
     getStats(adminStream),
     getRecentActivity(adminStream),
   ]);
+
+  const sections = getSections(t);
 
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Панель управления</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t.dashboard.heading}</h1>
           <p className="mt-0.5 text-sm text-gray-500">
             {adminStream
-              ? `Показывается поток ${adminStream}`
-              : "Все потоки — RO и RU"}
+              ? `${t.dashboard.descStream} ${adminStream}`
+              : t.dashboard.descAll}
           </p>
         </div>
         {adminStream && <StreamBadge stream={adminStream} />}
@@ -130,7 +137,7 @@ export default async function AdminDashboardPage() {
           </div>
           <div>
             <p className="text-2xl font-bold text-gray-900">{stats.prayers}</p>
-            <p className="text-sm text-gray-500">Молитв. просьбы</p>
+            <p className="text-sm text-gray-500">{t.submissions.prayersLabel}</p>
           </div>
         </Link>
       </div>
@@ -140,14 +147,14 @@ export default async function AdminDashboardPage() {
         {/* Recent sermons */}
         <div className="rounded-xl border border-gray-200 bg-white">
           <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
-            <h2 className="text-sm font-semibold text-gray-700">Последние проповеди</h2>
+            <h2 className="text-sm font-semibold text-gray-700">{t.dashboard.recentSermons}</h2>
             <Link href="/admin/sermons" className="text-xs text-gold hover:text-gold-dark">
-              Все →
+              {t.dashboard.all}
             </Link>
           </div>
           <ul className="divide-y divide-gray-50">
             {activity.recentSermons.length === 0 ? (
-              <li className="px-5 py-4 text-sm text-gray-400">Нет записей</li>
+              <li className="px-5 py-4 text-sm text-gray-400">{t.dashboard.noRecords}</li>
             ) : (
               activity.recentSermons.map((s) => (
                 <li key={s.id} className="flex items-start gap-3 px-5 py-3">
@@ -161,7 +168,7 @@ export default async function AdminDashboardPage() {
                       {!adminStream && <StreamBadge stream={s.stream} />}
                     </div>
                   </div>
-                  <span className="shrink-0 text-xs text-gray-400">{formatDate(s.createdAt)}</span>
+                  <span className="shrink-0 text-xs text-gray-400">{formatDate(s.createdAt, t.common.locale)}</span>
                 </li>
               ))
             )}
@@ -171,14 +178,14 @@ export default async function AdminDashboardPage() {
         {/* Recent events */}
         <div className="rounded-xl border border-gray-200 bg-white">
           <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
-            <h2 className="text-sm font-semibold text-gray-700">Ближайшие мероприятия</h2>
+            <h2 className="text-sm font-semibold text-gray-700">{t.dashboard.upcomingEvents}</h2>
             <Link href="/admin/events" className="text-xs text-gold hover:text-gold-dark">
-              Все →
+              {t.dashboard.all}
             </Link>
           </div>
           <ul className="divide-y divide-gray-50">
             {activity.recentEvents.length === 0 ? (
-              <li className="px-5 py-4 text-sm text-gray-400">Нет записей</li>
+              <li className="px-5 py-4 text-sm text-gray-400">{t.dashboard.noRecords}</li>
             ) : (
               activity.recentEvents.map((e) => (
                 <li key={e.id} className="flex items-start gap-3 px-5 py-3">
@@ -188,7 +195,7 @@ export default async function AdminDashboardPage() {
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium text-gray-900">{e.title}</p>
                     <div className="flex items-center gap-2">
-                      <p className="text-xs text-gray-400">{formatDate(e.eventDate)}</p>
+                      <p className="text-xs text-gray-400">{formatDate(e.eventDate, t.common.locale)}</p>
                       {!adminStream && <StreamBadge stream={e.stream} />}
                     </div>
                   </div>
@@ -201,14 +208,14 @@ export default async function AdminDashboardPage() {
         {/* Recent news */}
         <div className="rounded-xl border border-gray-200 bg-white">
           <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
-            <h2 className="text-sm font-semibold text-gray-700">Последние новости</h2>
+            <h2 className="text-sm font-semibold text-gray-700">{t.dashboard.recentNews}</h2>
             <Link href="/admin/news" className="text-xs text-gold hover:text-gold-dark">
-              Все →
+              {t.dashboard.all}
             </Link>
           </div>
           <ul className="divide-y divide-gray-50">
             {activity.recentNews.length === 0 ? (
-              <li className="px-5 py-4 text-sm text-gray-400">Нет записей</li>
+              <li className="px-5 py-4 text-sm text-gray-400">{t.dashboard.noRecords}</li>
             ) : (
               activity.recentNews.map((n) => (
                 <li key={n.id} className="flex items-start gap-3 px-5 py-3">
@@ -223,7 +230,7 @@ export default async function AdminDashboardPage() {
                       </div>
                     )}
                   </div>
-                  <span className="shrink-0 text-xs text-gray-400">{formatDate(n.createdAt)}</span>
+                  <span className="shrink-0 text-xs text-gray-400">{formatDate(n.createdAt, t.common.locale)}</span>
                 </li>
               ))
             )}

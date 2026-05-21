@@ -5,9 +5,10 @@ import { setAdminStream } from "@/server/actions/set-admin-stream";
 
 interface Props {
   current: "RO" | "RU" | null;
+  allLabel: string;
 }
 
-export function AdminStreamSwitcher({ current }: Props) {
+export function AdminStreamSwitcher({ current, allLabel }: Props) {
   const [isPending, startTransition] = useTransition();
 
   const btn = (stream: "RO" | "RU" | "ALL", label: string) => {
@@ -31,7 +32,7 @@ export function AdminStreamSwitcher({ current }: Props) {
 
   return (
     <div className="flex items-center gap-0.5 rounded-lg border border-gray-200 bg-gray-50 p-0.5">
-      {btn("ALL", "Все")}
+      {btn("ALL", allLabel)}
       {btn("RO", "🇷🇴 RO")}
       {btn("RU", "🇷🇺 RU")}
     </div>

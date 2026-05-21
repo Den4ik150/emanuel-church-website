@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
-import { adminNavItems } from "@/config/navigation.config";
 import {
   LayoutDashboard,
   PlayCircle,
@@ -18,6 +17,7 @@ import {
   UserCog,
   LogOut,
 } from "lucide-react";
+import type { AdminTranslations } from "@/lib/translations/admin";
 
 const iconMap: Record<string, React.ElementType> = {
   "/admin": LayoutDashboard,
@@ -32,21 +32,38 @@ const iconMap: Record<string, React.ElementType> = {
   "/admin/account": UserCog,
 };
 
-export function AdminSidebar() {
+interface Props {
+  t: AdminTranslations;
+}
+
+export function AdminSidebar({ t }: Props) {
   const pathname = usePathname();
+
+  const navItems = [
+    { label: t.nav.dashboard, href: "/admin" },
+    { label: t.nav.sermons, href: "/admin/sermons" },
+    { label: t.nav.events, href: "/admin/events" },
+    { label: t.nav.news, href: "/admin/news" },
+    { label: t.nav.schedule, href: "/admin/schedule" },
+    { label: t.nav.pages, href: "/admin/pages" },
+    { label: t.nav.gallery, href: "/admin/gallery" },
+    { label: t.nav.submissions, href: "/admin/submissions" },
+    { label: t.nav.settings, href: "/admin/settings" },
+    { label: t.nav.account, href: "/admin/account" },
+  ];
 
   return (
     <aside className="flex w-60 shrink-0 flex-col border-r border-gray-200 bg-white">
       {/* Logo */}
       <div className="border-b border-gray-100 px-5 py-4">
-        <p className="text-sm font-bold tracking-widest text-gray-900">ЭММАНУИЛ</p>
-        <p className="text-xs text-gray-400">Панель управления</p>
+        <p className="text-sm font-bold tracking-widest text-gray-900">{t.sidebar.title}</p>
+        <p className="text-xs text-gray-400">{t.sidebar.subtitle}</p>
       </div>
 
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto px-3 py-4">
         <ul className="space-y-0.5">
-          {adminNavItems.map((item) => {
+          {navItems.map((item) => {
             const Icon = iconMap[item.href] ?? LayoutDashboard;
             const isActive =
               item.href === "/admin"
@@ -80,7 +97,7 @@ export function AdminSidebar() {
           className="flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-900"
         >
           <LogOut className="h-4 w-4 shrink-0" />
-          Выйти
+          {t.sidebar.signOut}
         </button>
       </div>
     </aside>
