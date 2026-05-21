@@ -61,19 +61,6 @@ export function Header({ stream }: Props) {
               </div>
             )}
 
-            {/* Language switcher — UI only for now */}
-            <div className="hidden items-center gap-1.5 text-xs font-medium sm:flex">
-              <span className="text-gold">
-                {stream === "ro" ? "RO" : stream === "ru" ? "RU" : "RO"}
-              </span>
-              <span className="text-gray-200">|</span>
-              <span className="cursor-pointer text-gray-400 transition-colors hover:text-gray-700">
-                {stream === "ro" ? "RU" : "RO"}
-              </span>
-              <span className="text-gray-200">|</span>
-              <span className="cursor-pointer text-gray-400 transition-colors hover:text-gray-700">EN</span>
-            </div>
-
             {/* Admin link */}
             <Link
               href="/admin"
