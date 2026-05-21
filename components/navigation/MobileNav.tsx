@@ -78,24 +78,54 @@ export function MobileNav({ items, stream }: Props) {
             {/* Footer: stream switcher */}
             {stream && (
               <div className="border-t border-gray-100 p-5">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gray-400">Поток / Flux</p>
-                <div className="flex rounded-md border border-gray-200 overflow-hidden text-sm font-semibold">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  Выбрать поток / Selectează flux
+                </p>
+                <div className="flex flex-col gap-2">
+                  {/* RO */}
                   <button
-                    onClick={() => { if (stream !== "ro") handleStreamSwitch(); }}
-                    className={`flex-1 py-2.5 transition-colors ${
-                      stream === "ro" ? "bg-gold text-white" : "text-gray-500 hover:text-gray-800"
+                    onClick={() => { if (stream !== "ro") { handleStreamSwitch(); } }}
+                    className={`flex items-center gap-4 rounded-xl border p-4 text-left transition-all ${
+                      stream === "ro"
+                        ? "border-gold bg-gold/5 cursor-default"
+                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                     }`}
                   >
-                    🇷🇴 RO
+                    <span className="text-2xl">🇷🇴</span>
+                    <div className="flex-1">
+                      <p className={`font-bold ${stream === "ro" ? "text-gold" : "text-gray-800"}`}>
+                        Flux Român
+                      </p>
+                      <p className="text-xs text-gray-400">Servicii în limba română</p>
+                    </div>
+                    {stream === "ro" && (
+                      <span className="rounded-full bg-gold px-2 py-0.5 text-[10px] font-bold text-white">
+                        ACTIV
+                      </span>
+                    )}
                   </button>
-                  <span className="w-px self-stretch bg-gray-200" />
+
+                  {/* RU */}
                   <button
-                    onClick={() => { if (stream !== "ru") handleStreamSwitch(); }}
-                    className={`flex-1 py-2.5 transition-colors ${
-                      stream === "ru" ? "bg-gold text-white" : "text-gray-500 hover:text-gray-800"
+                    onClick={() => { if (stream !== "ru") { handleStreamSwitch(); } }}
+                    className={`flex items-center gap-4 rounded-xl border p-4 text-left transition-all ${
+                      stream === "ru"
+                        ? "border-gold bg-gold/5 cursor-default"
+                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                     }`}
                   >
-                    🇷🇺 RU
+                    <span className="text-2xl">🇷🇺</span>
+                    <div className="flex-1">
+                      <p className={`font-bold ${stream === "ru" ? "text-gold" : "text-gray-800"}`}>
+                        Русский поток
+                      </p>
+                      <p className="text-xs text-gray-400">Богослужения на русском языке</p>
+                    </div>
+                    {stream === "ru" && (
+                      <span className="rounded-full bg-gold px-2 py-0.5 text-[10px] font-bold text-white">
+                        АКТИВ
+                      </span>
+                    )}
                   </button>
                 </div>
               </div>

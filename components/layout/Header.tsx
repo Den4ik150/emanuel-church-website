@@ -54,12 +54,8 @@ export function Header({ stream }: Props) {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            {/* Stream switcher */}
-            {stream && (
-              <div className="hidden sm:block">
-                <StreamSwitcher currentStream={stream} />
-              </div>
-            )}
+            {/* Stream switcher — visible on all screen sizes */}
+            {stream && <StreamSwitcher currentStream={stream} />}
 
             {/* Admin link */}
             <Link

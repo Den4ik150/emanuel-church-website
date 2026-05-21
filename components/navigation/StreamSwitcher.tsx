@@ -1,10 +1,16 @@
 "use client";
 
+import { Fragment } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 type Props = {
   currentStream: string;
 };
+
+const STREAMS = {
+  ro: { flag: "🇷🇴", short: "RO", name: "Flux Român" },
+  ru: { flag: "🇷🇺", short: "RU", name: "Русский поток" },
+} as const;
 
 export function StreamSwitcher({ currentStream }: Props) {
   const pathname = usePathname();
@@ -15,29 +21,38 @@ export function StreamSwitcher({ currentStream }: Props) {
     router.push(newPath);
   }
 
-  const isRO = currentStream === "ro";
-  const isRU = currentStream === "ru";
-
-  const activeClass =
-    "bg-gold text-white shadow-sm cursor-default";
-  const inactiveClass =
-    "text-gray-500 hover:text-gray-800 cursor-pointer";
-
   return (
-    <div className="flex items-center rounded-md border border-gray-200 overflow-hidden text-xs font-semibold">
-      <button
-        onClick={() => !isRO && switchTo("ro")}
-        className={`px-3 py-1.5 transition-colors ${isRO ? activeClass : inactiveClass}`}
-      >
-        🇷🇴 RO
-      </button>
-      <span className="w-px self-stretch bg-gray-200" />
-      <button
-        onClick={() => !isRU && switchTo("ru")}
-        className={`px-3 py-1.5 transition-colors ${isRU ? activeClass : inactiveClass}`}
-      >
-        🇷🇺 RU
-      </button>
+    <div className="flex flex-col items-center gap-0.5">
+      {/* Label — only on desktop */}
+      <span className="hidden text-[10px] font-semibold uppercase tracking-widest text-gray-400 sm:block">
+        Поток / Flux
+      </span>
+
+      {/* Toggle */}
+      <div className="flex items-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 text-xs font-semibold">
+        {(["ro", "ru"] as const).map((stream, i) => {
+          const isActive = currentStream === stream;
+          return (
+            <Fragment key={stream}>
+              {i > 0 && <span className="w-px self-stretch bg-gray-200" />}
+              <button
+                onClick={() => !isActive && switchTo(stream)}
+                className={`flex items-center gap-1.5 transition-colors
+                  px-2.5 py-1.5 sm:px-3 sm:py-1.5
+                  ${isActive
+                    ? "bg-gold text-white cursor-default"
+                    : "text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                  }`}
+              >
+                <span>{STREAMS[stream].flag}</span>
+                {/* Full name on desktop, short code on mobile */}
+                <span className="hidden sm:inline">{STREAMS[stream].name}</span>
+                <span className="sm:hidden">{STREAMS[stream].short}</span>
+              </button>
+            </Fragment>
+          );
+        })}
+      </div>
     </div>
   );
 }
