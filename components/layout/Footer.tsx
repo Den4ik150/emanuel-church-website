@@ -26,8 +26,6 @@ export function Footer({ stream }: Props) {
       ]
     : [];
 
-  const otherStream = stream === "ro" ? "ru" : "ro";
-  const otherStreamLabel = stream === "ro" ? "🇷🇺 Русский поток" : "🇷🇴 Flux Român";
 
   return (
     <footer className="bg-[#1A1A2E] text-white">
@@ -132,44 +130,6 @@ export function Footer({ stream }: Props) {
             </ul>
           </div>
 
-          {/* Col 4 — Stream switcher */}
-          {stream && (
-            <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/30">
-                Поток / Flux
-              </p>
-              <div className="space-y-2">
-                {/* Current stream */}
-                <div className="flex items-center gap-3 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3">
-                  <span className="text-lg">{stream === "ro" ? "🇷🇴" : "🇷🇺"}</span>
-                  <div>
-                    <p className="text-sm font-semibold text-gold">
-                      {stream === "ro" ? "Flux Român" : "Русский поток"}
-                    </p>
-                    <p className="text-xs text-white/40">
-                      {stream === "ro" ? "Activ" : "Активный"}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Switch to other stream */}
-                <Link
-                  href={`/${otherStream}`}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3 transition-all hover:border-white/20 hover:bg-white/5"
-                >
-                  <span className="text-lg">{otherStream === "ro" ? "🇷🇴" : "🇷🇺"}</span>
-                  <div>
-                    <p className="text-sm font-medium text-white/60">
-                      {otherStreamLabel.replace(/🇷🇴 |🇷🇺 /, "")}
-                    </p>
-                    <p className="text-xs text-white/30">
-                      {stream === "ro" ? "Переключить" : "Comută"}
-                    </p>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          )}
         </div>
       </Container>
 
