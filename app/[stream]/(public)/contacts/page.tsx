@@ -39,7 +39,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">{t.contacts.addressLabel}</p>
-                      <p className="text-sm text-gray-600">Bălți, str. Pușkin, 1, Moldova</p>
+                      <p className="text-sm text-gray-600">Strada Pușkin 77, MD-3100, Bălți</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -75,7 +75,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
               </div>
               <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
                 <iframe
-                  src="https://maps.google.com/maps?q=Biserica+Crestina+Emanuel,+Balti,+Moldova&output=embed&z=16&hl=ro"
+                  src="https://maps.google.com/maps?q=Strada+Puskin+77,+Balti,+Moldova&output=embed&z=17"
                   width="100%"
                   height="320"
                   style={{ border: 0 }}

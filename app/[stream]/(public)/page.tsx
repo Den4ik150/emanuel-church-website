@@ -124,7 +124,7 @@ export default async function HomePage({
               </div>
               <div className="flex items-center gap-2 text-sm text-white/60">
                 <MapPin className="h-4 w-4 text-gold" />
-                <span>{nextEvent?.location ?? "Bălți, Moldova"}</span>
+                <span>{nextEvent?.location ?? "Strada Pușkin 77, Bălți"}</span>
               </div>
               <Link
                 href={`/${stream}/schedule`}
@@ -374,7 +374,7 @@ export default async function HomePage({
                   <p className="mb-1 text-sm font-semibold uppercase tracking-widest text-gold">
                     {t.home.address}
                   </p>
-                  <p className="text-white/70">Bălți, Moldova</p>
+                  <p className="text-white/70">Strada Pușkin 77, MD-3100, Bălți</p>
                 </div>
               </div>
 
