@@ -6,12 +6,14 @@ import { ContactForm } from "@/features/contacts/ContactForm";
 import { PrayerRequestForm } from "@/features/prayer-requests/PrayerRequestForm";
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
+import { YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
 
 export default async function ContactsPage({ params }: { params: Promise<{ stream: string }> }) {
   const { stream } = await params;
   if (!isValidStream(stream)) notFound();
   const t = getT(streamToLang(stream));
   const streamEnum = toStreamEnum(stream);
+  const youtubeUrl = YOUTUBE_CHANNEL_URLS[stream];
 
   return (
     <>
@@ -67,15 +69,30 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
                 <a href="#" aria-label="Telegram" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gold">
                   <Send className="h-5 w-5" /> Telegram
                 </a>
-                <a href="#" aria-label="YouTube" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gold">
+                <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-red-600">
                   <Youtube className="h-5 w-5" /> YouTube
                 </a>
               </div>
-              <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-gray-200 bg-gray-100">
-                <div className="text-center">
-                  <MapPin className="mx-auto mb-2 h-8 w-8 text-gray-300" />
-                  <p className="text-sm text-gray-400">Hartă / Карта</p>
-                </div>
+              <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+                <iframe
+                  src="https://maps.google.com/maps?q=Biserica+Crestina+Emanuel,+Balti,+Moldova&output=embed&z=16&hl=ro"
+                  width="100%"
+                  height="320"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Церковь Эммануил на карте"
+                />
+                <a
+                  href="https://share.google/L6dxie16lB9ZCVHNE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 bg-gray-50 py-2.5 text-xs font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gold"
+                >
+                  <MapPin className="h-3.5 w-3.5" />
+                  Открыть в Google Maps
+                </a>
               </div>
             </div>
             <div>
