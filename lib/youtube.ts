@@ -8,6 +8,11 @@ export const YOUTUBE_CHANNEL_URLS: Record<string, string> = {
   ru: "https://www.youtube.com/@emanuelbalti_ru",
 };
 
+export const YOUTUBE_CHANNEL_AVATARS: Record<string, string> = {
+  ro: "https://yt3.googleusercontent.com/Gg-8SEuAqp2BxpC_Efvxn6UZvDtdZfv15FqlDKJ088GrcncMz7s4WLAsQwWltmoLFyVBXTZuwg=s400-c-k-c0x00ffffff-no-rj",
+  ru: "https://yt3.googleusercontent.com/R4D0y-EMiNJm-WMla4gcJ7CCy_9IKS4QTyBrltyzImFpl9c2I20opz3tolpJSAywM87wmJLqJA=s400-c-k-c0x00ffffff-no-rj",
+};
+
 export interface YouTubeVideo {
   id: string;
   title: string;

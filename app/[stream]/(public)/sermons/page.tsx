@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Youtube } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
-import { getYouTubeVideos, YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
+import { getYouTubeVideos, YOUTUBE_CHANNEL_URLS, YOUTUBE_CHANNEL_AVATARS } from "@/lib/youtube";
 import { getT, streamToLang } from "@/lib/translations";
 import { isValidStream } from "@/lib/stream";
 
@@ -26,6 +26,7 @@ export default async function SermonsPage({
   const t = getT(streamToLang(stream));
   const videos = await getYouTubeVideos(stream, 18);
   const channelUrl = YOUTUBE_CHANNEL_URLS[stream];
+  const channelAvatar = YOUTUBE_CHANNEL_AVATARS[stream];
 
   return (
     <>
@@ -43,10 +44,24 @@ export default async function SermonsPage({
               href={channelUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-700"
+              className="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm transition-all hover:border-red-200 hover:shadow-md"
             >
-              <Youtube className="h-4 w-4" />
-              YouTube
+              <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-red-100">
+                <Image
+                  src={channelAvatar}
+                  alt="YouTube канал"
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="text-left">
+                <p className="text-xs text-gray-400">YouTube</p>
+                <p className="text-sm font-semibold text-gray-800 group-hover:text-red-600 transition-colors">
+                  {stream === "ro" ? "Biserica Emanuel Bălți" : "Церковь Эммануил | Бельцы"}
+                </p>
+              </div>
+              <Youtube className="ml-1 h-4 w-4 text-red-500 opacity-0 transition-all group-hover:opacity-100" />
             </a>
           </div>
         </Container>
@@ -104,8 +119,8 @@ export default async function SermonsPage({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-7 py-3 text-sm font-semibold text-gray-700 transition-all hover:border-red-300 hover:text-red-600"
               >
-                <Youtube className="h-4 w-4" />
-                {t.sermons.pageTitle} на YouTube
+                <Youtube className="h-4 w-4 text-red-500" />
+                Все видео на YouTube
               </a>
             </div>
           )}
