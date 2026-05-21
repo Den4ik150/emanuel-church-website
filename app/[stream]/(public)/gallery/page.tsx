@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ImageIcon } from "lucide-react";
 import { Container } from "@/components/shared/Container";
@@ -36,8 +37,9 @@ export default async function GalleryPage({ params }: { params: Promise<{ stream
           ) : (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {albums.map((album) => (
-                <div
+                <Link
                   key={album.id}
+                  href={`/${stream}/gallery/${album.slug}`}
                   className="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gold/40"
                 >
                   <div className="relative flex aspect-video items-center justify-center bg-gray-100">
@@ -60,7 +62,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ stream
                         .join(" · ")}
                     </p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}

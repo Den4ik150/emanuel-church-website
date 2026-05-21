@@ -13,10 +13,16 @@ export async function getAlbumById(id: string) {
   return prisma.galleryAlbum.findUnique({ where: { id } });
 }
 
-export async function getPublishedAlbums(stream: Stream) {
+export async function getPublishedAlbums(_stream?: Stream) {
   return prisma.galleryAlbum.findMany({
-    where: { isPublished: true, stream },
+    where: { isPublished: true },
     orderBy: { createdAt: "desc" },
     include: { _count: { select: { items: true } } },
+  });
+}
+
+export async function getPublishedAlbumBySlug(slug: string) {
+  return prisma.galleryAlbum.findFirst({
+    where: { slug, isPublished: true },
   });
 }
