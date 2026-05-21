@@ -19,129 +19,130 @@ export function Footer({ stream }: Props) {
 
   const navLinks = stream && t
     ? [
-        { label: t.nav.home,       href: `/${stream}` },
-        { label: t.nav.about,      href: `/${stream}/about` },
-        { label: t.nav.sermons,    href: `/${stream}/sermons` },
-        { label: t.nav.events,     href: `/${stream}/events` },
-        { label: t.nav.schedule,   href: `/${stream}/schedule` },
-        { label: t.nav.gallery,    href: `/${stream}/gallery` },
-        { label: t.nav.news,       href: `/${stream}/news` },
-        { label: t.nav.contacts,   href: `/${stream}/contacts` },
+        { label: t.nav.home,      href: `/${stream}` },
+        { label: t.nav.about,     href: `/${stream}/about` },
+        { label: t.nav.sermons,   href: `/${stream}/sermons` },
+        { label: t.nav.events,    href: `/${stream}/events` },
+        { label: t.nav.schedule,  href: `/${stream}/schedule` },
+        { label: t.nav.gallery,   href: `/${stream}/gallery` },
+        { label: t.nav.news,      href: `/${stream}/news` },
+        { label: t.nav.contacts,  href: `/${stream}/contacts` },
       ]
     : [];
 
+  const serviceTime = stream === "ro" ? "Duminică · 10:00" : "Воскресенье · 12:00";
 
   return (
     <footer className="bg-[#1A1A2E] text-white">
-      {/* Main footer */}
       <Container className="py-14">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
 
-          {/* Col 1 — Brand */}
-          <div className="lg:col-span-1">
-            <Link href={stream ? `/${stream}` : "/"}>
-              <p className="text-base font-bold tracking-widest text-white hover:text-gold transition-colors">
-                ЭММАНУИЛ / EMANUEL
-              </p>
-            </Link>
-            {t && (
-              <>
-                <p className="mt-1 text-sm text-gold">{t.footer.tagline}</p>
-                <p className="mt-4 text-sm leading-relaxed text-white/50">{t.footer.description}</p>
-              </>
-            )}
-
-            {/* Social icons */}
-            <div className="mt-6 flex items-center gap-3">
-              <a
-                href={facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-blue-400/50 hover:text-blue-400"
-              >
-                <Facebook className="h-4 w-4" />
-              </a>
-              <a
-                href={instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-pink-400/50 hover:text-pink-400"
-              >
-                <Instagram className="h-4 w-4" />
-              </a>
-              <a
-                href={telegramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Telegram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-sky-400/50 hover:text-sky-400"
-              >
-                <Send className="h-4 w-4" />
-              </a>
-              <a
-                href={youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-red-400/50 hover:text-red-400"
-              >
-                <Youtube className="h-4 w-4" />
-              </a>
+        {/* ── Contact cards ─────────────────────────────────── */}
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {/* Address */}
+          <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
+              <MapPin className="h-5 w-5 text-gold" />
             </div>
-          </div>
-
-          {/* Col 2 — Navigation */}
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/30">
-              {t ? t.footer.navTitle : "Navigation"}
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
+              {t ? t.contacts.addressLabel : "Address"}
             </p>
-            <ul className="space-y-2.5">
-              {navLinks.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-white/60 transition-colors hover:text-white"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3 — Contacts */}
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/30">
-              {t ? t.footer.contactsTitle : "Contacts"}
+            <p className="text-sm leading-relaxed text-white/70">
+              Strada Pușkin 77,<br />MD-3100, Bălți
             </p>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2.5 text-sm text-white/60">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                <span>Strada Pușkin 77,<br />MD-3100, Bălți</span>
-              </li>
-              <li className="flex items-center gap-2.5 text-sm text-white/60">
-                <Phone className="h-4 w-4 shrink-0 text-gold" />
-                <span>+373 231 00 000</span>
-              </li>
-              <li className="flex items-center gap-2.5 text-sm text-white/60">
-                <Mail className="h-4 w-4 shrink-0 text-gold" />
-                <span>info@emmanuil.md</span>
-              </li>
-              <li className="flex items-center gap-2.5 text-sm text-white/60">
-                <Clock className="h-4 w-4 shrink-0 text-gold" />
-                <span>
-                  {stream === "ro" ? "Duminică · 10:00" : "Воскресенье · 12:00"}
-                </span>
-              </li>
-            </ul>
           </div>
 
+          {/* Phone */}
+          <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
+              <Phone className="h-5 w-5 text-gold" />
+            </div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
+              {t ? t.contacts.phoneLabel : "Phone"}
+            </p>
+            <p className="text-sm text-white/70">+373 231 00 000</p>
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
+              <Mail className="h-5 w-5 text-gold" />
+            </div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
+              {t ? t.contacts.emailLabel : "Email"}
+            </p>
+            <p className="text-sm text-white/70">info@emmanuil.md</p>
+          </div>
+
+          {/* Schedule */}
+          <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
+              <Clock className="h-5 w-5 text-gold" />
+            </div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
+              {t ? t.contacts.scheduleLabel : "Schedule"}
+            </p>
+            <p className="text-sm text-white/70">{serviceTime}</p>
+          </div>
+        </div>
+
+        {/* ── Nav + social icons ────────────────────────────── */}
+        <div className="mt-10 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          {/* Navigation */}
+          <nav className="flex flex-wrap gap-x-5 gap-y-2">
+            {navLinks.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm text-white/50 transition-colors hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Social icons */}
+          <div className="flex items-center gap-3">
+            <a
+              href={facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-blue-400/50 hover:text-blue-400"
+            >
+              <Facebook className="h-4 w-4" />
+            </a>
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-pink-400/50 hover:text-pink-400"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Telegram"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-sky-400/50 hover:text-sky-400"
+            >
+              <Send className="h-4 w-4" />
+            </a>
+            <a
+              href={youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-red-400/50 hover:text-red-400"
+            >
+              <Youtube className="h-4 w-4" />
+            </a>
+          </div>
         </div>
       </Container>
 
-      {/* Bottom bar */}
+      {/* ── Copyright bar ─────────────────────────────────────── */}
       <div className="border-t border-white/5">
         <Container>
           <div className="flex flex-col items-center justify-between gap-2 py-5 text-xs text-white/25 sm:flex-row">
@@ -149,10 +150,7 @@ export function Footer({ stream }: Props) {
               © {new Date().getFullYear()} Biserica Emanuel / Церковь Эммануил, Bălți.
               {t && ` ${t.footer.rights}`}
             </p>
-            <Link
-              href="/admin"
-              className="transition-colors hover:text-white/50"
-            >
+            <Link href="/admin" className="transition-colors hover:text-white/50">
               Admin
             </Link>
           </div>
