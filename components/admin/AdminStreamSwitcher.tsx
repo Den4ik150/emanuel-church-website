@@ -11,7 +11,7 @@ interface Props {
 // Pages where switching stream is blocked (editing/creating content)
 function useIsEditing() {
   const pathname = usePathname();
-  return /\/(new|edit)/.test(pathname);
+  return /\/(new|edit)(\/|$)/.test(pathname);
 }
 
 export function AdminStreamSwitcher({ current }: Props) {
