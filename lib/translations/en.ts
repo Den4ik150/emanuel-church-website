@@ -121,6 +121,7 @@ export const en: Translations = {
   },
   footer: {
     tagline: "Bălți · Moldova",
+    description: "An evangelical Christian community in the heart of Bălți. You are welcome every Sunday.",
     navTitle: "Navigation",
     contactsTitle: "Contacts",
     rights: "All rights reserved.",

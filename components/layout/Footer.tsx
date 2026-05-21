@@ -45,11 +45,14 @@ export function Footer({ stream }: Props) {
               </p>
             </Link>
             {t && (
-              <p className="mt-1 text-sm text-gold">{t.footer.tagline}</p>
+              <>
+                <p className="mt-1 text-sm text-gold">{t.footer.tagline}</p>
+                <p className="mt-4 text-sm leading-relaxed text-white/50">{t.footer.description}</p>
+              </>
             )}
 
             {/* Social icons */}
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-6 flex items-center gap-3">
               <a
                 href={facebookUrl}
                 target="_blank"

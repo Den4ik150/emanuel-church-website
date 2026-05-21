@@ -121,6 +121,7 @@ export const ro: Translations = {
   },
   footer: {
     tagline: "Bălți · Flux Român",
+    description: "Comunitate creștină evanghelică în inima Bălțiului. Te așteptăm cu brațele deschise în fiecare duminică.",
     navTitle: "Navigare",
     contactsTitle: "Contacte",
     rights: "Toate drepturile rezervate.",
