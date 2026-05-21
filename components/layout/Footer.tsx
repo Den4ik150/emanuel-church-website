@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Clock, Instagram, Send, Youtube, Facebook } from "
 import { Container } from "@/components/shared/Container";
 import { getT, streamToLang } from "@/lib/translations";
 import { YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
+import { SOCIAL } from "@/lib/social";
 import type { StreamSlug } from "@/lib/stream";
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
 export function Footer({ stream }: Props) {
   const t = stream ? getT(streamToLang(stream)) : null;
   const youtubeUrl = stream ? YOUTUBE_CHANNEL_URLS[stream] : "#";
+  const instagramUrl = stream ? SOCIAL.instagram[stream] : "#";
+  const telegramUrl = stream ? SOCIAL.telegram[stream] || "#" : "#";
 
   const navLinks = stream && t
     ? [
@@ -59,16 +62,20 @@ export function Footer({ stream }: Props) {
                 <Facebook className="h-4 w-4" />
               </a>
               <a
-                href="#"
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-gold/50 hover:text-gold"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-pink-400/50 hover:text-pink-400"
               >
                 <Instagram className="h-4 w-4" />
               </a>
               <a
-                href="#"
+                href={telegramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Telegram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-gold/50 hover:text-gold"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-sky-400/50 hover:text-sky-400"
               >
                 <Send className="h-4 w-4" />
               </a>

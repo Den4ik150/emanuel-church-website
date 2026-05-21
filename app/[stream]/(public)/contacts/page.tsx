@@ -7,6 +7,7 @@ import { PrayerRequestForm } from "@/features/prayer-requests/PrayerRequestForm"
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
 import { YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
+import { SOCIAL } from "@/lib/social";
 
 export default async function ContactsPage({ params }: { params: Promise<{ stream: string }> }) {
   const { stream } = await params;
@@ -14,6 +15,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
   const t = getT(streamToLang(stream));
   const streamEnum = toStreamEnum(stream);
   const youtubeUrl = YOUTUBE_CHANNEL_URLS[stream];
+  const instagramUrl = SOCIAL.instagram[stream as "ro" | "ru"];
 
   return (
     <>
@@ -66,7 +68,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
                 <a href="https://www.facebook.com/emanuel.balti" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-blue-600">
                   <Facebook className="h-5 w-5" /> Facebook
                 </a>
-                <a href="#" aria-label="Instagram" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gold">
+                <a href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-500">
                   <Instagram className="h-5 w-5" /> Instagram
                 </a>
                 <a href="#" aria-label="Telegram" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gold">
