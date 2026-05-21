@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
 import { Container } from "@/components/shared/Container";
@@ -36,8 +37,9 @@ export default async function NewsPage({ params }: { params: Promise<{ stream: s
           ) : (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <article
+                <Link
                   key={post.id}
+                  href={`/${stream}/news/${post.slug}`}
                   className="group overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gold/40"
                 >
                   <div className="flex aspect-video items-center justify-center bg-gray-100">
@@ -60,7 +62,7 @@ export default async function NewsPage({ params }: { params: Promise<{ stream: s
                       <span>{formatDate(post.publishedAt, t.stream.locale)}</span>
                     </div>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           )}

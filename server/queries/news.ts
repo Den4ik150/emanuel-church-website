@@ -18,3 +18,9 @@ export async function getPublishedNews(stream: Stream) {
     orderBy: { publishedAt: "desc" },
   });
 }
+
+export async function getPublishedNewsBySlug(slug: string, stream: Stream) {
+  return prisma.newsPost.findFirst({
+    where: { slug, stream, isPublished: true },
+  });
+}
