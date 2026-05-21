@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
-import { MapPin, Phone, Instagram, Send, Youtube, PlayCircle, Calendar } from "lucide-react";
+import { MapPin, Phone, PlayCircle, Calendar } from "lucide-react";
 import { getUpcomingEvents } from "@/server/queries/events";
 import { getRecentSermons } from "@/server/queries/sermons";
 import { getT, streamToLang } from "@/lib/translations";
@@ -245,7 +245,7 @@ export default async function HomePage({
       <div className="bg-gray-900 text-white">
         <Container>
           <div className="py-10">
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
               <div className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
                 <div>
@@ -259,17 +259,6 @@ export default async function HomePage({
                   <p className="text-sm font-semibold text-white">{t.home.phone}</p>
                   <p className="text-sm text-gray-400">+373 — — — — — —</p>
                 </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <a href="#" aria-label="Instagram" className="text-gray-400 transition-colors hover:text-white">
-                  <Instagram className="h-5 w-5" />
-                </a>
-                <a href="#" aria-label="Telegram" className="text-gray-400 transition-colors hover:text-white">
-                  <Send className="h-5 w-5" />
-                </a>
-                <a href="#" aria-label="YouTube" className="text-gray-400 transition-colors hover:text-white">
-                  <Youtube className="h-5 w-5" />
-                </a>
               </div>
             </div>
           </div>
