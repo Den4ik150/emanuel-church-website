@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Settings } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { MainNav } from "@/components/navigation/MainNav";
 import { MobileNav } from "@/components/navigation/MobileNav";
@@ -72,6 +73,15 @@ export function Header({ stream }: Props) {
               <span className="text-gray-200">|</span>
               <span className="cursor-pointer text-gray-400 transition-colors hover:text-gray-700">EN</span>
             </div>
+
+            {/* Admin link */}
+            <Link
+              href="/admin"
+              className="rounded-md p-1.5 text-gray-300 transition-colors hover:bg-gray-100 hover:text-gray-500"
+              title="Панель управления"
+            >
+              <Settings className="h-4 w-4" />
+            </Link>
 
             {/* Mobile nav */}
             {isStreamPage && (
