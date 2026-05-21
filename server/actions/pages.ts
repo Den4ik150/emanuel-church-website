@@ -14,6 +14,7 @@ export async function createPage(data: StaticPageFormValues) {
 
   await prisma.staticPage.create({
     data: {
+      stream: parsed.stream,
       slug: parsed.slug,
       title: parsed.title,
       excerpt: nullable(parsed.excerpt),
@@ -34,6 +35,7 @@ export async function updatePage(id: string, data: StaticPageFormValues) {
   await prisma.staticPage.update({
     where: { id },
     data: {
+      stream: parsed.stream,
       slug: parsed.slug,
       title: parsed.title,
       excerpt: nullable(parsed.excerpt),

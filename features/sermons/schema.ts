@@ -10,6 +10,7 @@ export const sermonSchema = z.object({
   videoUrl: z.string().min(1, "Ссылка на видео обязательна"),
   timestampSeconds: z.string().optional(),
   notesUrl: z.string().optional(),
+  stream: z.enum(["RO", "RU"]),
   isPublished: z.boolean(),
 });
 

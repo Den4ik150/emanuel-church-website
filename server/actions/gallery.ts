@@ -14,6 +14,7 @@ export async function createAlbum(data: GalleryAlbumFormValues) {
 
   await prisma.galleryAlbum.create({
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       slug: parsed.slug,
       description: nullable(parsed.description),
@@ -33,6 +34,7 @@ export async function updateAlbum(id: string, data: GalleryAlbumFormValues) {
   await prisma.galleryAlbum.update({
     where: { id },
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       slug: parsed.slug,
       description: nullable(parsed.description),

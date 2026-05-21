@@ -9,6 +9,7 @@ export const eventSchema = z.object({
   location: z.string().optional(),
   imageUrl: z.string().optional(),
   isFeatured: z.boolean(),
+  stream: z.enum(["RO", "RU"]),
   isPublished: z.boolean(),
 });
 

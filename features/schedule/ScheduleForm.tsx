@@ -18,6 +18,7 @@ interface ScheduleFormProps {
     location: string | null;
     description: string | null;
     displayOrder: number;
+    stream: string;
     isActive: boolean;
   };
 }
@@ -56,6 +57,7 @@ export function ScheduleForm({ initialData }: ScheduleFormProps) {
           location: initialData.location ?? "",
           description: initialData.description ?? "",
           displayOrder: initialData.displayOrder.toString(),
+          stream: initialData.stream as "RO" | "RU",
           isActive: initialData.isActive,
         }
       : {
@@ -67,6 +69,7 @@ export function ScheduleForm({ initialData }: ScheduleFormProps) {
           location: "",
           description: "",
           displayOrder: "0",
+          stream: "RU" as const,
           isActive: true,
         },
   });
@@ -83,6 +86,15 @@ export function ScheduleForm({ initialData }: ScheduleFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <div>
+        <label className={labelClass}>Поток <span className="text-red-500">*</span></label>
+        <select {...register("stream")} className={inputClass}>
+          <option value="RU">Русский поток</option>
+          <option value="RO">Румынский поток</option>
+        </select>
+      </div>
+
+
       <div>
         <label className={labelClass}>
           Название <span className="text-red-500">*</span>

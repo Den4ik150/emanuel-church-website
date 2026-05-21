@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import type { Stream } from "@/lib/generated/prisma/client";
 
 export async function getAllEvents() {
   return prisma.event.findMany({
@@ -10,16 +11,16 @@ export async function getEventById(id: string) {
   return prisma.event.findUnique({ where: { id } });
 }
 
-export async function getPublishedEvents() {
+export async function getPublishedEvents(stream: Stream) {
   return prisma.event.findMany({
-    where: { isPublished: true },
+    where: { isPublished: true, stream },
     orderBy: { eventDate: "asc" },
   });
 }
 
-export async function getUpcomingEvents(limit = 3) {
+export async function getUpcomingEvents(stream: Stream, limit = 3) {
   return prisma.event.findMany({
-    where: { isPublished: true, eventDate: { gte: new Date() } },
+    where: { isPublished: true, stream, eventDate: { gte: new Date() } },
     orderBy: { eventDate: "asc" },
     take: limit,
   });

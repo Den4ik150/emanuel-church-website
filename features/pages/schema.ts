@@ -7,6 +7,7 @@ export const staticPageSchema = z.object({
   content: z.string().min(1, "Содержание обязательно"),
   seoTitle: z.string().optional(),
   seoDescription: z.string().optional(),
+  stream: z.enum(["RO", "RU"]),
   isPublished: z.boolean(),
 });
 

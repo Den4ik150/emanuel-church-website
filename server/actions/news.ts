@@ -14,6 +14,7 @@ export async function createNews(data: NewsFormValues) {
 
   await prisma.newsPost.create({
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       slug: parsed.slug,
       excerpt: nullable(parsed.excerpt),
@@ -36,6 +37,7 @@ export async function updateNews(id: string, data: NewsFormValues) {
   await prisma.newsPost.update({
     where: { id },
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       slug: parsed.slug,
       excerpt: nullable(parsed.excerpt),

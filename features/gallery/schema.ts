@@ -6,6 +6,7 @@ export const galleryAlbumSchema = z.object({
   description: z.string().optional(),
   albumDate: z.string().optional(),
   coverImageUrl: z.string().optional(),
+  stream: z.enum(["RO", "RU"]),
   isPublished: z.boolean(),
 });
 

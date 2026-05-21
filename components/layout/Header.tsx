@@ -2,33 +2,85 @@ import Link from "next/link";
 import { Container } from "@/components/shared/Container";
 import { MainNav } from "@/components/navigation/MainNav";
 import { MobileNav } from "@/components/navigation/MobileNav";
-import { publicNavItems } from "@/config/navigation.config";
+import { StreamSwitcher } from "@/components/navigation/StreamSwitcher";
+import { getT, streamToLang } from "@/lib/translations";
+import type { NavItem } from "@/config/navigation.config";
+import type { StreamSlug } from "@/lib/stream";
 
-export function Header() {
+type Props = {
+  stream?: StreamSlug;
+};
+
+export function Header({ stream }: Props) {
+  const isStreamPage = !!stream;
+  const t = stream ? getT(streamToLang(stream)) : null;
+
+  const navItems: NavItem[] = stream && t
+    ? [
+        { label: t.nav.home,        href: `/${stream}` },
+        { label: t.nav.about,       href: `/${stream}/about` },
+        { label: t.nav.ministries,  href: `/${stream}/ministries` },
+        { label: t.nav.sermons,     href: `/${stream}/sermons` },
+        { label: t.nav.events,      href: `/${stream}/events` },
+        { label: t.nav.schedule,    href: `/${stream}/schedule` },
+        { label: t.nav.gallery,     href: `/${stream}/gallery` },
+        { label: t.nav.news,        href: `/${stream}/news` },
+        { label: t.nav.contacts,    href: `/${stream}/contacts` },
+      ]
+    : [];
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 w-full border-b border-gray-100 bg-white/95 backdrop-blur-sm">
       <Container>
-        <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="group flex flex-col leading-tight">
+        <div className="flex h-16 items-center justify-between gap-4">
+          {/* Logo */}
+          <Link
+            href={stream ? `/${stream}` : "/"}
+            className="group flex flex-col leading-tight"
+          >
             <span className="text-base font-bold tracking-widest text-gray-900 transition-colors group-hover:text-gold">
-              ЭММАНУИЛ
+              ЭММАНУИЛ / EMANUEL
             </span>
-            <span className="text-[10px] tracking-widest text-gray-400 uppercase">
-              Бельцы · Русский поток
-            </span>
+            {t && (
+              <span className="text-[10px] tracking-widest text-gold uppercase">
+                {t.stream.name}
+              </span>
+            )}
           </Link>
 
-          <MainNav items={publicNavItems} />
+          {/* Desktop nav */}
+          {isStreamPage && <MainNav items={navItems} />}
 
-          <div className="flex items-center gap-4">
+          {/* Right side */}
+          <div className="flex items-center gap-3">
+            {/* Stream switcher */}
+            {stream && t && (
+              <div className="hidden sm:block">
+                <StreamSwitcher currentStream={stream} switchLabel={t.stream.switchTo} />
+              </div>
+            )}
+
+            {/* Language switcher — UI only for now */}
             <div className="hidden items-center gap-1.5 text-xs font-medium sm:flex">
-              <span className="text-gold">RU</span>
+              <span className="text-gold">
+                {stream === "ro" ? "RO" : stream === "ru" ? "RU" : "RO"}
+              </span>
               <span className="text-gray-200">|</span>
-              <span className="cursor-pointer text-gray-400 transition-colors hover:text-gray-700">RO</span>
+              <span className="cursor-pointer text-gray-400 transition-colors hover:text-gray-700">
+                {stream === "ro" ? "RU" : "RO"}
+              </span>
               <span className="text-gray-200">|</span>
               <span className="cursor-pointer text-gray-400 transition-colors hover:text-gray-700">EN</span>
             </div>
-            <MobileNav items={publicNavItems} />
+
+            {/* Mobile nav */}
+            {isStreamPage && (
+              <MobileNav
+                items={navItems}
+                stream={stream}
+                switchLabel={t?.stream.switchTo ?? ""}
+              />
+            )}
           </div>
         </div>
       </Container>

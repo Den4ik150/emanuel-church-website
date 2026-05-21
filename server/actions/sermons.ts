@@ -20,6 +20,7 @@ export async function createSermon(data: SermonFormValues) {
 
   await prisma.sermon.create({
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       topic: nullable(parsed.topic),
       preacher: parsed.preacher,
@@ -43,6 +44,7 @@ export async function updateSermon(id: string, data: SermonFormValues) {
   await prisma.sermon.update({
     where: { id },
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       topic: nullable(parsed.topic),
       preacher: parsed.preacher,

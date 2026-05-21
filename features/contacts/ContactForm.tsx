@@ -6,13 +6,14 @@ import { useTransition, useState } from "react";
 import { CheckCircle } from "lucide-react";
 import { contactSchema, type ContactFormValues } from "./schema";
 import { submitContact } from "@/server/actions/contacts";
+import type { Stream } from "@/lib/generated/prisma/client";
 
 const inputClass =
   "w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gold focus:ring-1 focus:ring-gold placeholder:text-gray-400";
 const labelClass = "mb-1.5 block text-sm font-medium text-gray-700";
 const errorClass = "mt-1 text-xs text-red-500";
 
-export function ContactForm() {
+export function ContactForm({ stream = "RU" }: { stream?: Stream }) {
   const [isPending, startTransition] = useTransition();
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -29,7 +30,7 @@ export function ContactForm() {
   const onSubmit = (data: ContactFormValues) => {
     setServerError(null);
     startTransition(async () => {
-      const result = await submitContact(data);
+      const result = await submitContact(data, stream);
       if (result.success) {
         setSubmitted(true);
       } else {

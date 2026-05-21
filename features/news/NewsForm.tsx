@@ -15,6 +15,7 @@ interface NewsFormProps {
     excerpt: string | null;
     content: string;
     coverImageUrl: string | null;
+    stream: "RO" | "RU";
     isPublished: boolean;
   };
 }
@@ -51,6 +52,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
           excerpt: initialData.excerpt ?? "",
           content: initialData.content,
           coverImageUrl: initialData.coverImageUrl ?? "",
+          stream: initialData.stream,
           isPublished: initialData.isPublished,
         }
       : {
@@ -59,6 +61,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
           excerpt: "",
           content: "",
           coverImageUrl: "",
+          stream: "RU" as const,
           isPublished: false,
         },
   });
@@ -83,6 +86,15 @@ export function NewsForm({ initialData }: NewsFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <div>
+        <label className={labelClass}>Поток <span className="text-red-500">*</span></label>
+        <select {...register("stream")} className={inputClass}>
+          <option value="RU">Русский поток</option>
+          <option value="RO">Румынский поток</option>
+        </select>
+      </div>
+
+
       <div>
         <label className={labelClass}>
           Заголовок <span className="text-red-500">*</span>

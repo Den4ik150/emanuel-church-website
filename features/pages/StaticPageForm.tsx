@@ -16,6 +16,7 @@ interface StaticPageFormProps {
     content: string;
     seoTitle: string | null;
     seoDescription: string | null;
+    stream: "RO" | "RU";
     isPublished: boolean;
   };
 }
@@ -42,6 +43,7 @@ export function StaticPageForm({ initialData }: StaticPageFormProps) {
           content: initialData.content,
           seoTitle: initialData.seoTitle ?? "",
           seoDescription: initialData.seoDescription ?? "",
+          stream: initialData.stream,
           isPublished: initialData.isPublished,
         }
       : {
@@ -51,6 +53,7 @@ export function StaticPageForm({ initialData }: StaticPageFormProps) {
           content: "",
           seoTitle: "",
           seoDescription: "",
+          stream: "RU" as const,
           isPublished: false,
         },
   });
@@ -67,6 +70,15 @@ export function StaticPageForm({ initialData }: StaticPageFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <div>
+        <label className={labelClass}>Поток <span className="text-red-500">*</span></label>
+        <select {...register("stream")} className={inputClass}>
+          <option value="RU">Русский поток</option>
+          <option value="RO">Румынский поток</option>
+        </select>
+      </div>
+
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className={labelClass}>

@@ -6,6 +6,7 @@ export const newsSchema = z.object({
   excerpt: z.string().optional(),
   content: z.string().min(1, "Содержание обязательно"),
   coverImageUrl: z.string().optional(),
+  stream: z.enum(["RO", "RU"]),
   isPublished: z.boolean(),
 });
 

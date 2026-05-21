@@ -9,6 +9,7 @@ export const scheduleSchema = z.object({
   location: z.string().optional(),
   description: z.string().optional(),
   displayOrder: z.string().optional(),
+  stream: z.enum(["RO", "RU"]),
   isActive: z.boolean(),
 });
 

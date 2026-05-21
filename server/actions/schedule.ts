@@ -14,6 +14,7 @@ export async function createScheduleItem(data: ScheduleFormValues) {
 
   await prisma.scheduleItem.create({
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       category: nullable(parsed.category),
       weekday: parsed.weekday,
@@ -36,6 +37,7 @@ export async function updateScheduleItem(id: string, data: ScheduleFormValues) {
   await prisma.scheduleItem.update({
     where: { id },
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       category: nullable(parsed.category),
       weekday: parsed.weekday,

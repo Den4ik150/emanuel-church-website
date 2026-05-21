@@ -10,6 +10,7 @@ import { createSermon, updateSermon } from "@/server/actions/sermons";
 interface SermonFormProps {
   initialData?: {
     id: string;
+    stream: "RO" | "RU";
     title: string;
     topic: string | null;
     preacher: string;
@@ -39,6 +40,7 @@ export function SermonForm({ initialData }: SermonFormProps) {
     resolver: zodResolver(sermonSchema),
     defaultValues: initialData
       ? {
+          stream: initialData.stream,
           title: initialData.title,
           topic: initialData.topic ?? "",
           preacher: initialData.preacher,
@@ -51,6 +53,7 @@ export function SermonForm({ initialData }: SermonFormProps) {
           isPublished: initialData.isPublished,
         }
       : {
+          stream: "RU" as const,
           title: "",
           topic: "",
           preacher: "",
@@ -76,6 +79,14 @@ export function SermonForm({ initialData }: SermonFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <div>
+        <label className={labelClass}>Поток <span className="text-red-500">*</span></label>
+        <select {...register("stream")} className={inputClass}>
+          <option value="RU">Русский поток</option>
+          <option value="RO">Румынский поток</option>
+        </select>
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2">
           <label className={labelClass}>

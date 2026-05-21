@@ -14,6 +14,7 @@ export async function createEvent(data: EventFormValues) {
 
   await prisma.event.create({
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       slug: parsed.slug,
       description: nullable(parsed.description),
@@ -36,6 +37,7 @@ export async function updateEvent(id: string, data: EventFormValues) {
   await prisma.event.update({
     where: { id },
     data: {
+      stream: parsed.stream,
       title: parsed.title,
       slug: parsed.slug,
       description: nullable(parsed.description),
