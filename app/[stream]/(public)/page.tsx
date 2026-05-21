@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
-import { MapPin, Phone, Clock, PlayCircle, Calendar, ArrowRight } from "lucide-react";
+import { MapPin, Clock, PlayCircle, Calendar, ArrowRight } from "lucide-react";
 import { getUpcomingEvents } from "@/server/queries/events";
 import { getYouTubeVideos, YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
 import { getT, streamToLang } from "@/lib/translations";
@@ -353,67 +353,23 @@ export default async function HomePage({
         </Container>
       </div>
 
-      {/* ─── CONTACTS STRIP ───────────────────────────────────────── */}
+      {/* ─── CTA ──────────────────────────────────────────────────── */}
       <div className="bg-[#1A1A2E]">
         <Container>
-          <div className="py-16">
-            <div className="mb-10 text-center">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
-                {t.nav.contacts}
-              </p>
-              <h2 className="text-3xl font-bold text-white">{t.contacts.pageTitle}</h2>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Address */}
-              <div className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
-                  <MapPin className="h-5 w-5 text-gold" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold uppercase tracking-widest text-gold">
-                    {t.home.address}
-                  </p>
-                  <p className="text-white/70">Strada Pușkin 77, MD-3100, Bălți</p>
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
-                  <Phone className="h-5 w-5 text-gold" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold uppercase tracking-widest text-gold">
-                    {t.home.phone}
-                  </p>
-                  <p className="text-white/70">+373 — — — — — —</p>
-                </div>
-              </div>
-
-              {/* Schedule */}
-              <div className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-8 text-center sm:col-span-2 lg:col-span-1">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
-                  <Clock className="h-5 w-5 text-gold" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold uppercase tracking-widest text-gold">
-                    {t.nav.schedule}
-                  </p>
-                  <p className="text-white/70">{t.home.defaultService}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10 text-center">
-              <Link
-                href={`/${stream}/contacts`}
-                className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-7 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold/10"
-              >
-                {t.home.btnHowToFind}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
+          <div className="py-16 text-center">
+            <h2 className="mb-3 text-3xl font-bold text-white">
+              {stream === "ro" ? "Veniți la noi" : "Приходите к нам"}
+            </h2>
+            <p className="mb-8 text-white/50">
+              Strada Pușkin 77, MD-3100, Bălți
+            </p>
+            <Link
+              href={`/${stream}/contacts`}
+              className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-7 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold/10"
+            >
+              {t.home.btnHowToFind}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </Container>
       </div>
