@@ -57,7 +57,7 @@ export default async function HomePage({
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-cover object-[35%_50%] sm:object-center"
           />
           {/* Dark gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/30" />
