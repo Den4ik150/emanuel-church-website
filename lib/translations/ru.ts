@@ -24,7 +24,7 @@ export const ru = {
     btnHowToFind: "Как нас найти",
     nextServiceLabel: "Ближайшее богослужение",
     nextEventLabel: "Ближайшее мероприятие",
-    defaultService: "Воскресенье · 10:00",
+    defaultService: "Воскресенье · 15:00",
     scheduleLink: "Полное расписание →",
     aboutLabel: "О нас",
     churchName: "Церковь Эммануил",

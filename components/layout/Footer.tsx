@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, Clock, Instagram, Send, Youtube, Facebook } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Send, Youtube, Facebook } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { getT, streamToLang } from "@/lib/translations";
 import { YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
@@ -30,14 +30,12 @@ export function Footer({ stream }: Props) {
       ]
     : [];
 
-  const serviceTime = stream === "ro" ? "Duminică · 10:00" : "Воскресенье · 12:00";
-
   return (
     <footer className="bg-[#1A1A2E] text-white">
       <Container className="py-14">
 
         {/* ── Contact cards ─────────────────────────────────── */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {/* Address */}
           <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
@@ -73,16 +71,6 @@ export function Footer({ stream }: Props) {
             <p className="text-sm text-white/70">info@emmanuil.md</p>
           </div>
 
-          {/* Schedule */}
-          <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
-              <Clock className="h-5 w-5 text-gold" />
-            </div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
-              {t ? t.contacts.scheduleLabel : "Schedule"}
-            </p>
-            <p className="text-sm text-white/70">{serviceTime}</p>
-          </div>
         </div>
 
         {/* ── Nav + social icons ────────────────────────────── */}
