@@ -16,6 +16,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
   const streamEnum = toStreamEnum(stream);
   const youtubeUrl = YOUTUBE_CHANNEL_URLS[stream];
   const instagramUrl = SOCIAL.instagram[stream as "ro" | "ru"];
+  const facebookUrl = SOCIAL.facebook[stream as "ro" | "ru"];
 
   return (
     <>
@@ -65,7 +66,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
                 </div>
               </div>
               <div className="flex gap-4">
-                <a href="https://www.facebook.com/emanuel.balti" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-blue-600">
+                <a href={facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-blue-600">
                   <Facebook className="h-5 w-5" /> Facebook
                 </a>
                 <a href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-500">

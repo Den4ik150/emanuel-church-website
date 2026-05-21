@@ -1,7 +1,14 @@
 /** All social media / external links for the church */
 
 export const SOCIAL = {
-  facebook: "https://www.facebook.com/emanuel.balti",
+  facebook: {
+    ro: "https://www.facebook.com/emanuel.balti",
+    ru: "https://www.facebook.com/profile.php?id=61557257373421",
+  },
+  facebookAvatar: {
+    ro: "https://res.cloudinary.com/dcml2gd8n/image/upload/v1779386995/emmanuil-church/social/fb-avatar-ro.jpg",
+    ru: "", // RU page has no custom profile photo yet
+  },
 
   instagram: {
     ro: "https://www.instagram.com/emanuel.balti/",

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Phone, Mail, Clock, Instagram, Send, Youtube, Facebook } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { getT, streamToLang } from "@/lib/translations";
@@ -14,6 +15,8 @@ export function Footer({ stream }: Props) {
   const t = stream ? getT(streamToLang(stream)) : null;
   const youtubeUrl = stream ? YOUTUBE_CHANNEL_URLS[stream] : "#";
   const instagramUrl = stream ? SOCIAL.instagram[stream] : "#";
+  const facebookUrl = stream ? SOCIAL.facebook[stream] : "#";
+  const facebookAvatar = stream ? SOCIAL.facebookAvatar[stream] : "";
   const telegramUrl = stream ? SOCIAL.telegram[stream] || "#" : "#";
 
   const navLinks = stream && t
@@ -53,13 +56,23 @@ export function Footer({ stream }: Props) {
             {/* Social icons */}
             <div className="mt-5 flex items-center gap-3">
               <a
-                href="https://www.facebook.com/emanuel.balti"
+                href={facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-blue-400/50 hover:text-blue-400"
+                className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/10 text-white/50 transition-all hover:border-blue-400/50 hover:text-blue-400"
               >
-                <Facebook className="h-4 w-4" />
+                {facebookAvatar ? (
+                  <Image
+                    src={facebookAvatar}
+                    alt="Facebook"
+                    width={36}
+                    height={36}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <Facebook className="h-4 w-4" />
+                )}
               </a>
               <a
                 href={instagramUrl}
