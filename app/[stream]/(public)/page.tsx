@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
 import { MapPin, Phone, Clock, PlayCircle, Calendar, ArrowRight } from "lucide-react";
 import { getUpcomingEvents } from "@/server/queries/events";
-import { getRecentSermons } from "@/server/queries/sermons";
+import { getYouTubeVideos, YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
 
@@ -39,7 +39,7 @@ export default async function HomePage({
 
   const [upcomingEvents, recentSermons] = await Promise.all([
     getUpcomingEvents(streamEnum, 3),
-    getRecentSermons(streamEnum, 3),
+    getYouTubeVideos(stream, 3),
   ]);
 
   const nextEvent = upcomingEvents[0] ?? null;
@@ -286,42 +286,38 @@ export default async function HomePage({
                 </p>
                 <h2 className="text-3xl font-bold text-gray-900">{t.home.sermonsTitle}</h2>
               </div>
-              <Link
-                href={`/${stream}/sermons`}
+              <a
+                href={YOUTUBE_CHANNEL_URLS[stream]}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hidden items-center gap-1.5 text-sm font-medium text-gold transition-colors hover:text-gold-dark sm:inline-flex"
               >
                 {t.home.sermonsAllLink}
                 <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              </a>
             </div>
 
             {recentSermons.length === 0 ? (
               <p className="text-sm text-gray-400">{t.home.noSermons}</p>
             ) : (
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                {recentSermons.map((sermon) => (
+                {recentSermons.map((video) => (
                   <a
-                    key={sermon.id}
-                    href={sermon.videoUrl}
+                    key={video.id}
+                    href={video.videoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group overflow-hidden rounded-2xl bg-white shadow-md shadow-gray-200/80 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-200"
                   >
                     {/* Thumbnail */}
                     <div className="relative aspect-video overflow-hidden bg-gray-100">
-                      {sermon.thumbnailUrl ? (
-                        <Image
-                          src={sermon.thumbnailUrl}
-                          alt={sermon.title}
-                          fill
-                          sizes="(max-width: 640px) 100vw, 33vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center">
-                          <PlayCircle className="h-10 w-10 text-gray-300 transition-colors group-hover:text-gold" />
-                        </div>
-                      )}
+                      <Image
+                        src={video.thumbnailUrl}
+                        alt={video.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
                       {/* Play overlay on hover */}
                       <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all group-hover:bg-black/30">
                         <div className="flex h-12 w-12 scale-75 items-center justify-center rounded-full bg-gold opacity-0 shadow-lg shadow-gold/30 transition-all group-hover:scale-100 group-hover:opacity-100">
@@ -332,14 +328,9 @@ export default async function HomePage({
 
                     {/* Card body */}
                     <div className="p-5">
-                      {sermon.topic && (
-                        <p className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-gold">
-                          {sermon.topic}
-                        </p>
-                      )}
-                      <h3 className="mb-2 font-bold leading-snug text-gray-900">{sermon.title}</h3>
+                      <h3 className="mb-2 font-bold leading-snug text-gray-900">{video.title}</h3>
                       <p className="text-sm text-gray-500">
-                        {sermon.preacher} · {formatDate(sermon.sermonDate, t.stream.locale)}
+                        {formatDate(video.published, t.stream.locale)}
                       </p>
                     </div>
                   </a>
@@ -348,13 +339,15 @@ export default async function HomePage({
             )}
 
             <div className="mt-8 sm:hidden">
-              <Link
-                href={`/${stream}/sermons`}
+              <a
+                href={YOUTUBE_CHANNEL_URLS[stream]}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-gold"
               >
                 {t.home.sermonsAllLink}
                 <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              </a>
             </div>
           </div>
         </Container>
