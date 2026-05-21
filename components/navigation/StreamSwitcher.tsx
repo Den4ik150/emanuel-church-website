@@ -22,12 +22,7 @@ export function StreamSwitcher({ currentStream }: Props) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-0.5">
-      {/* Label — only on desktop */}
-      <span className="hidden text-[10px] font-semibold uppercase tracking-widest text-gray-400 sm:block">
-        Поток / Flux
-      </span>
-
+    <div className="flex items-center">
       {/* Toggle */}
       <div className="flex items-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 text-xs font-semibold">
         {(["ro", "ru"] as const).map((stream, i) => {
