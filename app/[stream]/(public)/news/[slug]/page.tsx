@@ -1,9 +1,9 @@
 export const dynamic = "force-dynamic";
 
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { Container } from "@/components/shared/Container";
+import { PageHero } from "@/components/shared/PageHero";
 import { getPublishedNewsBySlug } from "@/server/queries/news";
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
@@ -32,24 +32,12 @@ export default async function NewsPostPage({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="border-b border-gray-100 bg-gray-50">
-        <Container>
-          <div className="py-10 lg:py-14">
-            <Link
-              href={`/${stream}/news`}
-              className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gold"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {t.news.pageTitle}
-            </Link>
-            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{post.title}</h1>
-            <div className="mt-3 flex items-center gap-1.5 text-sm text-gray-400">
-              <Calendar className="h-4 w-4" />
-              <span>{formatDate(post.publishedAt, t.stream.locale)}</span>
-            </div>
-          </div>
-        </Container>
-      </div>
+      <PageHero
+        title={post.title}
+        subtitle={formatDate(post.publishedAt, t.stream.locale)}
+        backHref={`/${stream}/news`}
+        backLabel={t.news.pageTitle}
+      />
 
       <Container>
         <div className="mx-auto max-w-2xl py-12">

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
+import { PageHero } from "@/components/shared/PageHero";
 import { getPublishedNews } from "@/server/queries/news";
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
@@ -31,14 +32,7 @@ export default async function NewsPage({ params }: { params: Promise<{ stream: s
 
   return (
     <>
-      <div className="border-b border-gray-100 bg-gray-50">
-        <Container>
-          <div className="py-12 lg:py-16">
-            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{t.news.pageTitle}</h1>
-            <p className="mt-2 text-gray-500">{t.news.pageSubtitle}</p>
-          </div>
-        </Container>
-      </div>
+      <PageHero title={t.news.pageTitle} subtitle={t.news.pageSubtitle} />
       <Section>
         <Container>
           {posts.length === 0 ? (

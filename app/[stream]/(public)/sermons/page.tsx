@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Youtube } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
+import { PageHero } from "@/components/shared/PageHero";
 import { getYouTubeVideos, YOUTUBE_CHANNEL_URLS, YOUTUBE_CHANNEL_AVATARS } from "@/lib/youtube";
 import { getT, streamToLang } from "@/lib/translations";
 import { isValidStream } from "@/lib/stream";
@@ -30,42 +31,7 @@ export default async function SermonsPage({
 
   return (
     <>
-      {/* Header */}
-      <div className="border-b border-gray-100 bg-[#F7F5F0]">
-        <Container>
-          <div className="flex flex-col gap-4 py-12 sm:flex-row sm:items-end sm:justify-between lg:py-16">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                {t.sermons.pageTitle}
-              </h1>
-              <p className="mt-2 text-gray-500">{t.sermons.pageSubtitle}</p>
-            </div>
-            <a
-              href={channelUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm transition-all hover:border-red-200 hover:shadow-md"
-            >
-              <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-red-100">
-                <Image
-                  src={channelAvatar}
-                  alt="YouTube канал"
-                  fill
-                  sizes="40px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="text-left">
-                <p className="text-xs text-gray-400">YouTube</p>
-                <p className="text-sm font-semibold text-gray-800 group-hover:text-red-600 transition-colors">
-                  {stream === "ro" ? "Biserica Emanuel Bălți" : "Церковь Эммануил | Бельцы"}
-                </p>
-              </div>
-              <Youtube className="ml-1 h-4 w-4 text-red-500 opacity-0 transition-all group-hover:opacity-100" />
-            </a>
-          </div>
-        </Container>
-      </div>
+      <PageHero title={t.sermons.pageTitle} subtitle={t.sermons.pageSubtitle} />
 
       <Section>
         <Container>

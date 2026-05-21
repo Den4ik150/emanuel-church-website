@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
+import { PageHero } from "@/components/shared/PageHero";
 import { getActiveScheduleItems } from "@/server/queries/schedule";
 import { getT, streamToLang, type Translations } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
@@ -33,14 +34,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ strea
 
   return (
     <>
-      <div className="border-b border-gray-100 bg-gray-50">
-        <Container>
-          <div className="py-12 lg:py-16">
-            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{t.schedule.pageTitle}</h1>
-            <p className="mt-2 text-gray-500">{t.schedule.pageSubtitle}</p>
-          </div>
-        </Container>
-      </div>
+      <PageHero title={t.schedule.pageTitle} subtitle={t.schedule.pageSubtitle} />
       <Section>
         <Container>
           {items.length === 0 ? (

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
+import { PageHero } from "@/components/shared/PageHero";
 import { MapPin, Phone, Mail, Instagram, Send, Youtube, Facebook } from "lucide-react";
 import { ContactForm } from "@/features/contacts/ContactForm";
 import { PrayerRequestForm } from "@/features/prayer-requests/PrayerRequestForm";
@@ -20,14 +21,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
 
   return (
     <>
-      <div className="border-b border-gray-100 bg-gray-50">
-        <Container>
-          <div className="py-12 lg:py-16">
-            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{t.contacts.pageTitle}</h1>
-            <p className="mt-2 text-gray-500">{t.contacts.pageSubtitle}</p>
-          </div>
-        </Container>
-      </div>
+      <PageHero title={t.contacts.pageTitle} subtitle={t.contacts.pageSubtitle} />
 
       <Section>
         <Container>

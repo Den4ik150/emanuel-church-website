@@ -1,10 +1,9 @@
 export const dynamic = "force-dynamic";
 
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
+import { PageHero } from "@/components/shared/PageHero";
 import { getPublishedAlbumBySlug } from "@/server/queries/gallery";
 import { getAlbumItems } from "@/server/queries/gallery-items";
 import { getT, streamToLang } from "@/lib/translations";
@@ -27,24 +26,12 @@ export default async function AlbumPage({
 
   return (
     <>
-      <div className="border-b border-gray-100 bg-gray-50">
-        <Container>
-          <div className="py-12 lg:py-16">
-            <Link
-              href={`/${stream}/gallery`}
-              className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gold"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {t.gallery.pageTitle}
-            </Link>
-            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{album.title}</h1>
-            {album.description && (
-              <p className="mt-2 text-gray-500">{album.description}</p>
-            )}
-            <p className="mt-1 text-sm text-gray-400">{items.length} {t.gallery.photos}</p>
-          </div>
-        </Container>
-      </div>
+      <PageHero
+        title={album.title}
+        subtitle={album.description ?? `${items.length} ${t.gallery.photos}`}
+        backHref={`/${stream}/gallery`}
+        backLabel={t.gallery.pageTitle}
+      />
 
       <Section>
         <Container>
