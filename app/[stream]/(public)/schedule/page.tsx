@@ -62,7 +62,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ strea
                           <div className="mb-1 flex flex-wrap items-center gap-3">
                             <h3 className="font-semibold text-gray-900">{item.title}</h3>
                             <span className="text-sm font-medium text-gold">
-                              {item.startTime}{item.endTime && ` – ${item.endTime}`}
+                              {item.startTime}
                             </span>
                           </div>
                           {item.description && (
