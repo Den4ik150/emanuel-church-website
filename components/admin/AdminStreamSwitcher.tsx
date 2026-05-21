@@ -1,40 +1,53 @@
 "use client";
 
 import { useTransition } from "react";
+import { usePathname } from "next/navigation";
 import { setAdminStream } from "@/server/actions/set-admin-stream";
 
 interface Props {
   current: "RO" | "RU" | null;
-  allLabel: string;
 }
 
-export function AdminStreamSwitcher({ current, allLabel }: Props) {
-  const [isPending, startTransition] = useTransition();
+// Pages where switching stream is blocked (editing/creating content)
+function useIsEditing() {
+  const pathname = usePathname();
+  return /\/(new|edit)/.test(pathname);
+}
 
-  const btn = (stream: "RO" | "RU" | "ALL", label: string) => {
-    const isActive =
-      stream === "ALL" ? current === null : current === stream;
+export function AdminStreamSwitcher({ current }: Props) {
+  const [isPending, startTransition] = useTransition();
+  const isEditing = useIsEditing();
+
+  const btn = (stream: "RO" | "RU") => {
+    const isActive = current === stream;
     return (
       <button
         key={stream}
-        onClick={() => startTransition(() => setAdminStream(stream))}
-        disabled={isPending || isActive}
-        className={`px-3 py-1 rounded text-xs font-semibold transition-colors ${
+        onClick={() => !isEditing && startTransition(() => setAdminStream(stream))}
+        disabled={isPending || isActive || isEditing}
+        title={isEditing ? "Сохрани или отмени изменения перед переключением потока" : undefined}
+        className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors ${
           isActive
             ? "bg-gold text-white shadow-sm cursor-default"
-            : "text-gray-500 hover:bg-gray-100 disabled:opacity-50"
+            : isEditing
+            ? "text-gray-300 cursor-not-allowed"
+            : "text-gray-500 hover:bg-gray-100"
         }`}
       >
-        {label}
+        {stream === "RO" ? "🇷🇴 RO" : "🇷🇺 RU"}
       </button>
     );
   };
 
   return (
-    <div className="flex items-center gap-0.5 rounded-lg border border-gray-200 bg-gray-50 p-0.5">
-      {btn("ALL", allLabel)}
-      {btn("RO", "🇷🇴 RO")}
-      {btn("RU", "🇷🇺 RU")}
+    <div className={`flex items-center gap-0.5 rounded-lg border bg-gray-50 p-0.5 transition-colors ${
+      isEditing ? "border-gray-100 opacity-60" : "border-gray-200"
+    }`}>
+      {btn("RO")}
+      {btn("RU")}
+      {isEditing && (
+        <span className="px-2 text-xs text-gray-400">🔒</span>
+      )}
     </div>
   );
 }
