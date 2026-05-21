@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Instagram, Send, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Instagram, Send, Youtube } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { getT, streamToLang } from "@/lib/translations";
+import { YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
 import type { StreamSlug } from "@/lib/stream";
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 
 export function Footer({ stream }: Props) {
   const t = stream ? getT(streamToLang(stream)) : null;
+  const youtubeUrl = stream ? YOUTUBE_CHANNEL_URLS[stream] : "#";
 
   const navLinks = stream && t
     ? [
@@ -24,35 +26,69 @@ export function Footer({ stream }: Props) {
       ]
     : [];
 
+  const otherStream = stream === "ro" ? "ru" : "ro";
+  const otherStreamLabel = stream === "ro" ? "🇷🇺 Русский поток" : "🇷🇴 Flux Român";
+
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <Container className="py-12">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-          <div className="space-y-3">
-            <p className="text-lg font-bold tracking-widest text-white">ЭММАНУИЛ / EMANUEL</p>
-            <p className="text-sm text-gray-400">{t ? t.footer.tagline : "Bălți · Moldova"}</p>
-            <p className="text-sm italic text-gold">«соль» / «sare»</p>
-            <div className="flex gap-4 pt-2">
-              <a href="#" aria-label="Instagram" className="text-gray-400 transition-colors hover:text-white">
-                <Instagram className="h-5 w-5" />
+    <footer className="bg-[#1A1A2E] text-white">
+      {/* Main footer */}
+      <Container className="py-14">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+
+          {/* Col 1 — Brand */}
+          <div className="lg:col-span-1">
+            <Link href={stream ? `/${stream}` : "/"}>
+              <p className="text-base font-bold tracking-widest text-white hover:text-gold transition-colors">
+                ЭММАНУИЛ / EMANUEL
+              </p>
+            </Link>
+            {t && (
+              <p className="mt-1 text-sm text-gold">{t.footer.tagline}</p>
+            )}
+            <p className="mt-3 text-sm leading-relaxed text-white/50">
+              Strada Pușkin 77, MD-3100, Bălți, Moldova
+            </p>
+
+            {/* Social icons */}
+            <div className="mt-5 flex items-center gap-4">
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-gold/50 hover:text-gold"
+              >
+                <Instagram className="h-4 w-4" />
               </a>
-              <a href="#" aria-label="Telegram" className="text-gray-400 transition-colors hover:text-white">
-                <Send className="h-5 w-5" />
+              <a
+                href="#"
+                aria-label="Telegram"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-gold/50 hover:text-gold"
+              >
+                <Send className="h-4 w-4" />
               </a>
-              <a href="#" aria-label="YouTube" className="text-gray-400 transition-colors hover:text-white">
-                <Youtube className="h-5 w-5" />
+              <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-red-400/50 hover:text-red-400"
+              >
+                <Youtube className="h-4 w-4" />
               </a>
             </div>
           </div>
 
+          {/* Col 2 — Navigation */}
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/30">
               {t ? t.footer.navTitle : "Navigation"}
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {navLinks.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-sm text-gray-400 transition-colors hover:text-white">
+                  <Link
+                    href={item.href}
+                    className="text-sm text-white/60 transition-colors hover:text-white"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -60,23 +96,91 @@ export function Footer({ stream }: Props) {
             </ul>
           </div>
 
+          {/* Col 3 — Contacts */}
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/30">
               {t ? t.footer.contactsTitle : "Contacts"}
             </p>
-            <address className="not-italic space-y-2 text-sm text-gray-400">
-              <p>Bălți, Moldova</p>
-              <p>+373 — — — — — —</p>
-              <p>info@emmanuil.md</p>
-            </address>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-2.5 text-sm text-white/60">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                <span>Strada Pușkin 77,<br />MD-3100, Bălți</span>
+              </li>
+              <li className="flex items-center gap-2.5 text-sm text-white/60">
+                <Phone className="h-4 w-4 shrink-0 text-gold" />
+                <span>+373 231 00 000</span>
+              </li>
+              <li className="flex items-center gap-2.5 text-sm text-white/60">
+                <Mail className="h-4 w-4 shrink-0 text-gold" />
+                <span>info@emmanuil.md</span>
+              </li>
+              <li className="flex items-center gap-2.5 text-sm text-white/60">
+                <Clock className="h-4 w-4 shrink-0 text-gold" />
+                <span>
+                  {stream === "ro" ? "Duminică · 10:00" : "Воскресенье · 12:00"}
+                </span>
+              </li>
+            </ul>
           </div>
-        </div>
 
-        <div className="mt-10 border-t border-gray-800 pt-6 text-center text-xs text-gray-600">
-          © {new Date().getFullYear()} Biserica Emanuel / Церковь Эммануил, Bălți.{" "}
-          {t ? t.footer.rights : "All rights reserved."}
+          {/* Col 4 — Stream switcher */}
+          {stream && (
+            <div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/30">
+                Поток / Flux
+              </p>
+              <div className="space-y-2">
+                {/* Current stream */}
+                <div className="flex items-center gap-3 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3">
+                  <span className="text-lg">{stream === "ro" ? "🇷🇴" : "🇷🇺"}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-gold">
+                      {stream === "ro" ? "Flux Român" : "Русский поток"}
+                    </p>
+                    <p className="text-xs text-white/40">
+                      {stream === "ro" ? "Activ" : "Активный"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Switch to other stream */}
+                <Link
+                  href={`/${otherStream}`}
+                  className="flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3 transition-all hover:border-white/20 hover:bg-white/5"
+                >
+                  <span className="text-lg">{otherStream === "ro" ? "🇷🇴" : "🇷🇺"}</span>
+                  <div>
+                    <p className="text-sm font-medium text-white/60">
+                      {otherStreamLabel.replace(/🇷🇴 |🇷🇺 /, "")}
+                    </p>
+                    <p className="text-xs text-white/30">
+                      {stream === "ro" ? "Переключить" : "Comută"}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </Container>
+
+      {/* Bottom bar */}
+      <div className="border-t border-white/5">
+        <Container>
+          <div className="flex flex-col items-center justify-between gap-2 py-5 text-xs text-white/25 sm:flex-row">
+            <p>
+              © {new Date().getFullYear()} Biserica Emanuel / Церковь Эммануил, Bălți.
+              {t && ` ${t.footer.rights}`}
+            </p>
+            <Link
+              href="/admin"
+              className="transition-colors hover:text-white/50"
+            >
+              Admin
+            </Link>
+          </div>
+        </Container>
+      </div>
     </footer>
   );
 }
