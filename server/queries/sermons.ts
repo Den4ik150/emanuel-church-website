@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import type { Stream } from "@/lib/generated/prisma/client";
 
-export async function getAllSermons() {
+export async function getAllSermons(stream?: Stream | null) {
   return prisma.sermon.findMany({
+    where: stream ? { stream } : undefined,
     orderBy: { sermonDate: "desc" },
   });
 }

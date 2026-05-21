@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import type { Stream } from "@/lib/generated/prisma/client";
 
-export async function getAllEvents() {
+export async function getAllEvents(stream?: Stream | null) {
   return prisma.event.findMany({
+    where: stream ? { stream } : undefined,
     orderBy: { eventDate: "desc" },
   });
 }

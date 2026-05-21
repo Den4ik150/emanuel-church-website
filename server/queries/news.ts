@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import type { Stream } from "@/lib/generated/prisma/client";
 
-export async function getAllNews() {
+export async function getAllNews(stream?: Stream | null) {
   return prisma.newsPost.findMany({
+    where: stream ? { stream } : undefined,
     orderBy: { createdAt: "desc" },
   });
 }

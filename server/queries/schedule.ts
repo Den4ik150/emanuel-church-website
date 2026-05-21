@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import type { Stream } from "@/lib/generated/prisma/client";
 
-export async function getAllScheduleItems() {
+export async function getAllScheduleItems(stream?: Stream | null) {
   return prisma.scheduleItem.findMany({
+    where: stream ? { stream } : undefined,
     orderBy: [{ displayOrder: "asc" }, { weekday: "asc" }, { startTime: "asc" }],
   });
 }
