@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, Clock, Instagram, Send, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Instagram, Send, Youtube, Facebook } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { getT, streamToLang } from "@/lib/translations";
 import { YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
@@ -50,7 +50,16 @@ export function Footer({ stream }: Props) {
             </p>
 
             {/* Social icons */}
-            <div className="mt-5 flex items-center gap-4">
+            <div className="mt-5 flex items-center gap-3">
+              <a
+                href="https://www.facebook.com/emanuel.balti"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all hover:border-blue-400/50 hover:text-blue-400"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
               <a
                 href="#"
                 aria-label="Instagram"

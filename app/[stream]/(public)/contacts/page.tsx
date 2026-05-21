@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
-import { MapPin, Phone, Mail, Instagram, Send, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Send, Youtube, Facebook } from "lucide-react";
 import { ContactForm } from "@/features/contacts/ContactForm";
 import { PrayerRequestForm } from "@/features/prayer-requests/PrayerRequestForm";
 import { getT, streamToLang } from "@/lib/translations";
@@ -63,6 +63,9 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
                 </div>
               </div>
               <div className="flex gap-4">
+                <a href="https://www.facebook.com/emanuel.balti" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-blue-600">
+                  <Facebook className="h-5 w-5" /> Facebook
+                </a>
                 <a href="#" aria-label="Instagram" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gold">
                   <Instagram className="h-5 w-5" /> Instagram
                 </a>
