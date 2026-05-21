@@ -55,9 +55,9 @@ export function Header({ stream }: Props) {
           {/* Right side */}
           <div className="flex items-center gap-3">
             {/* Stream switcher */}
-            {stream && t && (
+            {stream && (
               <div className="hidden sm:block">
-                <StreamSwitcher currentStream={stream} switchLabel={t.stream.switchTo} />
+                <StreamSwitcher currentStream={stream} />
               </div>
             )}
 
@@ -85,11 +85,7 @@ export function Header({ stream }: Props) {
 
             {/* Mobile nav */}
             {isStreamPage && (
-              <MobileNav
-                items={navItems}
-                stream={stream}
-                switchLabel={t?.stream.switchTo ?? ""}
-              />
+              <MobileNav items={navItems} stream={stream} />
             )}
           </div>
         </div>
