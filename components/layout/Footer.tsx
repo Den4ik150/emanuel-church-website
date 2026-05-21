@@ -47,9 +47,6 @@ export function Footer({ stream }: Props) {
             {t && (
               <p className="mt-1 text-sm text-gold">{t.footer.tagline}</p>
             )}
-            <p className="mt-3 text-sm leading-relaxed text-white/50">
-              Strada Pușkin 77, MD-3100, Bălți, Moldova
-            </p>
 
             {/* Social icons */}
             <div className="mt-5 flex items-center gap-3">

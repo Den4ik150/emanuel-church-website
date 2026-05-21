@@ -357,12 +357,9 @@ export default async function HomePage({
       <div className="bg-[#1A1A2E]">
         <Container>
           <div className="py-16 text-center">
-            <h2 className="mb-3 text-3xl font-bold text-white">
+            <h2 className="mb-8 text-3xl font-bold text-white">
               {stream === "ro" ? "Veniți la noi" : "Приходите к нам"}
             </h2>
-            <p className="mb-8 text-white/50">
-              Strada Pușkin 77, MD-3100, Bălți
-            </p>
             <Link
               href={`/${stream}/contacts`}
               className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-7 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold/10"
