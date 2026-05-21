@@ -7,7 +7,7 @@ export const SOCIAL = {
   },
   facebookAvatar: {
     ro: "https://res.cloudinary.com/dcml2gd8n/image/upload/v1779386995/emmanuil-church/social/fb-avatar-ro.jpg",
-    ru: "", // RU page has no custom profile photo yet
+    ru: "https://res.cloudinary.com/dcml2gd8n/image/upload/v1779387141/emmanuil-church/social/fb-avatar-ru.jpg",
   },
 
   instagram: {
