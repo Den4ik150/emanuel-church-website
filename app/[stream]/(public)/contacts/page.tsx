@@ -80,7 +80,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
             </div>
             <div>
               <h2 className="mb-5 text-xl font-bold text-gray-900">{t.contacts.formTitle}</h2>
-              <ContactForm stream={streamEnum} />
+              <ContactForm stream={streamEnum} lang={streamToLang(stream)} />
             </div>
           </div>
         </Container>
@@ -95,7 +95,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
                 <p className="mt-3 text-gray-500">{t.contacts.prayerText}</p>
               </div>
               <div className="rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
-                <PrayerRequestForm stream={streamEnum} />
+                <PrayerRequestForm stream={streamEnum} lang={streamToLang(stream)} />
               </div>
             </div>
           </Container>

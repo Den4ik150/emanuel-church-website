@@ -7,13 +7,21 @@ import { CheckCircle } from "lucide-react";
 import { contactSchema, type ContactFormValues } from "./schema";
 import { submitContact } from "@/server/actions/contacts";
 import type { Stream } from "@/lib/generated/prisma/client";
+import { getT, type Lang } from "@/lib/translations";
 
 const inputClass =
   "w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gold focus:ring-1 focus:ring-gold placeholder:text-gray-400";
 const labelClass = "mb-1.5 block text-sm font-medium text-gray-700";
 const errorClass = "mt-1 text-xs text-red-500";
 
-export function ContactForm({ stream = "RU" }: { stream?: Stream }) {
+export function ContactForm({
+  stream = "RU",
+  lang = "ru",
+}: {
+  stream?: Stream;
+  lang?: Lang;
+}) {
+  const t = getT(lang).contacts;
   const [isPending, startTransition] = useTransition();
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -34,7 +42,7 @@ export function ContactForm({ stream = "RU" }: { stream?: Stream }) {
       if (result.success) {
         setSubmitted(true);
       } else {
-        setServerError(result.error ?? "Ошибка отправки.");
+        setServerError(result.error ?? t.sendError);
       }
     });
   };
@@ -44,10 +52,8 @@ export function ContactForm({ stream = "RU" }: { stream?: Stream }) {
       <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-green-100 bg-green-50 px-6 py-12 text-center">
         <CheckCircle className="h-10 w-10 text-green-500" />
         <div>
-          <p className="font-semibold text-gray-900">Сообщение отправлено!</p>
-          <p className="mt-1 text-sm text-gray-500">
-            Мы свяжемся с вами в ближайшее время.
-          </p>
+          <p className="font-semibold text-gray-900">{t.successTitle}</p>
+          <p className="mt-1 text-sm text-gray-500">{t.successDesc}</p>
         </div>
       </div>
     );
@@ -57,38 +63,38 @@ export function ContactForm({ stream = "RU" }: { stream?: Stream }) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <label className={labelClass}>
-          Ваше имя <span className="text-red-500">*</span>
+          {t.nameLabel} <span className="text-red-500">*</span>
         </label>
-        <input {...register("name")} placeholder="Иван Иванов" className={inputClass} />
+        <input {...register("name")} placeholder={t.namePlaceholder} className={inputClass} />
         {errors.name && <p className={errorClass}>{errors.name.message}</p>}
       </div>
 
       <div>
         <label className={labelClass}>
-          Email <span className="text-red-500">*</span>
+          {t.emailFieldLabel} <span className="text-red-500">*</span>
         </label>
         <input
           {...register("email")}
           type="email"
-          placeholder="ivan@example.com"
+          placeholder="email@example.com"
           className={inputClass}
         />
         {errors.email && <p className={errorClass}>{errors.email.message}</p>}
       </div>
 
       <div>
-        <label className={labelClass}>Телефон (необязательно)</label>
+        <label className={labelClass}>{t.phoneFieldLabel}</label>
         <input {...register("phone")} type="tel" placeholder="+373 000 000 00" className={inputClass} />
       </div>
 
       <div>
         <label className={labelClass}>
-          Сообщение <span className="text-red-500">*</span>
+          {t.messageLabel} <span className="text-red-500">*</span>
         </label>
         <textarea
           {...register("message")}
           rows={5}
-          placeholder="Ваше сообщение..."
+          placeholder={t.messagePlaceholder}
           className={`${inputClass} resize-none`}
         />
         {errors.message && <p className={errorClass}>{errors.message.message}</p>}
@@ -101,7 +107,7 @@ export function ContactForm({ stream = "RU" }: { stream?: Stream }) {
         disabled={isPending}
         className="w-full rounded-md bg-gold px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-gold-dark disabled:opacity-50"
       >
-        {isPending ? "Отправка..." : "Отправить сообщение"}
+        {isPending ? t.sendingBtn : t.sendBtn}
       </button>
     </form>
   );
