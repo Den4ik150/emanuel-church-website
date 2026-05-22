@@ -54,7 +54,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">{t.contacts.emailLabel}</p>
-                      <p className="text-sm text-gray-600">info@emmanuil.md</p>
+                      <p className="text-sm text-gray-600">info@emmanuel.md</p>
                     </div>
                   </div>
                 </div>

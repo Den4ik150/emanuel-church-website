@@ -68,7 +68,7 @@ export function Footer({ stream }: Props) {
             <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
               {t ? t.contacts.emailLabel : "Email"}
             </p>
-            <p className="text-sm text-white/70">info@emmanuil.md</p>
+            <p className="text-sm text-white/70">info@emmanuel.md</p>
           </div>
 
         </div>
