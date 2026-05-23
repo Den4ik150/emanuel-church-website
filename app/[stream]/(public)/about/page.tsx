@@ -67,7 +67,7 @@ export default async function AboutPage({ params }: { params: Promise<{ stream: 
             <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
               {c.label}
             </p>
-            <h1 className="text-4xl font-bold text-white sm:text-5xl">{c.title}</h1>
+            <h1 className="font-serif text-4xl font-bold text-white sm:text-5xl">{c.title}</h1>
             <p className="mt-3 text-lg text-white/70">{c.subtitle}</p>
           </Container>
         </div>
@@ -115,7 +115,7 @@ export default async function AboutPage({ params }: { params: Promise<{ stream: 
 
                 {/* Pastor info */}
                 <div className="pt-2">
-                  <h2 className="mb-3 text-2xl font-bold text-gray-900">{c.pastorName}</h2>
+                  <h2 className="mb-3 font-serif text-2xl font-bold text-gray-900">{c.pastorName}</h2>
                   <p className="leading-relaxed text-gray-600">{c.pastorBio}</p>
                 </div>
               </div>

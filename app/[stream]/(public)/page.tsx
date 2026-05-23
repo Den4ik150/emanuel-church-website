@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
+import { FadeIn, StaggerChildren, StaggerItem, ScaleIn } from "@/components/shared/Animate";
 import { MapPin, Clock, PlayCircle, Calendar, ArrowRight } from "lucide-react";
 import { getUpcomingEvents } from "@/server/queries/events";
 import { getYouTubeVideos, YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
@@ -68,37 +69,44 @@ export default async function HomePage({
         <div className="relative z-10 flex flex-1 items-center">
           <Container>
             <div className="max-w-2xl py-24">
-              {/* Gold pill badge */}
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 backdrop-blur-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                <span className="text-xs font-semibold uppercase tracking-widest text-gold">
-                  {t.home.subtitle}
-                </span>
-              </div>
+              <FadeIn delay={0.1} direction="up">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 backdrop-blur-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+                  <span className="text-xs font-semibold uppercase tracking-widest text-gold">
+                    {t.home.subtitle}
+                  </span>
+                </div>
+              </FadeIn>
 
-              <h1 className="mb-6 text-5xl font-bold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
-                {t.home.title}
-              </h1>
+              <FadeIn delay={0.2} direction="up">
+                <h1 className="mb-6 font-serif text-5xl font-bold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
+                  {t.home.title}
+                </h1>
+              </FadeIn>
 
-              <p className="mb-10 text-lg leading-relaxed text-white/70 sm:text-xl">
-                {t.home.heroText}
-              </p>
+              <FadeIn delay={0.35} direction="up">
+                <p className="mb-10 text-lg leading-relaxed text-white/70 sm:text-xl">
+                  {t.home.heroText}
+                </p>
+              </FadeIn>
 
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href={`/${stream}/about`}
-                  className="inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-gold/25 transition-all hover:bg-gold-dark hover:shadow-gold/40"
-                >
-                  {t.home.btnAbout}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href={`/${stream}/contacts`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
-                >
-                  {t.home.btnHowToFind}
-                </Link>
-              </div>
+              <FadeIn delay={0.45} direction="up">
+                <div className="flex flex-wrap gap-4">
+                  <Link
+                    href={`/${stream}/about`}
+                    className="inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-gold/25 transition-all hover:bg-gold-dark hover:shadow-gold/40"
+                  >
+                    {t.home.btnAbout}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <Link
+                    href={`/${stream}/contacts`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                  >
+                    {t.home.btnHowToFind}
+                  </Link>
+                </div>
+              </FadeIn>
             </div>
           </Container>
         </div>
@@ -143,11 +151,11 @@ export default async function HomePage({
         <Container>
           <div className="grid grid-cols-1 items-center gap-16 py-24 lg:grid-cols-2">
             {/* Text */}
-            <div>
+            <FadeIn direction="left">
               <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gold">
                 {t.home.aboutLabel}
               </p>
-              <h2 className="mb-6 text-4xl font-bold leading-tight text-gray-900">
+              <h2 className="mb-6 font-serif text-4xl font-bold leading-tight text-gray-900">
                 {t.home.churchName}
               </h2>
               <p className="mb-4 leading-relaxed text-gray-600">{t.home.aboutText1}</p>
@@ -159,30 +167,30 @@ export default async function HomePage({
                 {t.home.learnMore}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-            </div>
+            </FadeIn>
 
             {/* Pastor photo */}
-            <div className="relative">
-              {/* Decorative gold block behind */}
-              <div className="absolute -right-4 -top-4 h-3/4 w-3/4 rounded-2xl bg-gold/15" />
-              <div className="absolute -bottom-4 -left-4 h-1/3 w-1/3 rounded-2xl bg-gold/10" />
-
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
-                {pastorPhoto ? (
-                  <Image
-                    src={pastorPhoto}
-                    alt="Пастор"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover object-top"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-gray-200">
-                    <p className="text-sm text-gray-400">{t.home.churchPhoto}</p>
-                  </div>
-                )}
+            <ScaleIn delay={0.15}>
+              <div className="relative">
+                <div className="absolute -right-4 -top-4 h-3/4 w-3/4 rounded-2xl bg-gold/15" />
+                <div className="absolute -bottom-4 -left-4 h-1/3 w-1/3 rounded-2xl bg-gold/10" />
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
+                  {pastorPhoto ? (
+                    <Image
+                      src={pastorPhoto}
+                      alt="Пастор"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-top"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-gray-200">
+                      <p className="text-sm text-gray-400">{t.home.churchPhoto}</p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            </ScaleIn>
           </div>
         </Container>
       </div>
@@ -191,12 +199,12 @@ export default async function HomePage({
       <div className="bg-[#1A1A2E]">
         <Container>
           <div className="py-24">
-            <div className="mb-10 flex items-end justify-between">
+            <FadeIn className="mb-10 flex items-end justify-between">
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
                   {t.home.eventsLabel}
                 </p>
-                <h2 className="text-3xl font-bold text-white">{t.home.eventsTitle}</h2>
+                <h2 className="font-serif text-3xl font-bold text-white">{t.home.eventsTitle}</h2>
               </div>
               <Link
                 href={`/${stream}/events`}
@@ -205,13 +213,14 @@ export default async function HomePage({
                 {t.home.eventsAllLink}
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
-            </div>
+            </FadeIn>
 
             {upcomingEvents.length === 0 ? (
               <p className="text-sm text-white/40">{t.home.noEvents}</p>
             ) : (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <StaggerChildren className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {upcomingEvents.map((event, idx) => (
+                  <StaggerItem key={event.id}>
                   <div
                     key={event.id}
                     className={`rounded-2xl p-6 transition-all ${
@@ -258,8 +267,9 @@ export default async function HomePage({
                       </div>
                     )}
                   </div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerChildren>
             )}
 
             <div className="mt-8 sm:hidden">
@@ -279,12 +289,12 @@ export default async function HomePage({
       <div className="bg-[#F7F5F0]">
         <Container>
           <div className="py-24">
-            <div className="mb-10 flex items-end justify-between">
+            <FadeIn className="mb-10 flex items-end justify-between">
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gold">
                   {t.home.sermonsLabel}
                 </p>
-                <h2 className="text-3xl font-bold text-gray-900">{t.home.sermonsTitle}</h2>
+                <h2 className="font-serif text-3xl font-bold text-gray-900">{t.home.sermonsTitle}</h2>
               </div>
               <a
                 href={YOUTUBE_CHANNEL_URLS[stream]}
@@ -295,13 +305,14 @@ export default async function HomePage({
                 {t.home.sermonsAllLink}
                 <ArrowRight className="h-3.5 w-3.5" />
               </a>
-            </div>
+            </FadeIn>
 
             {recentSermons.length === 0 ? (
               <p className="text-sm text-gray-400">{t.home.noSermons}</p>
             ) : (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+              <StaggerChildren className="grid grid-cols-1 gap-6 sm:grid-cols-3">
                 {recentSermons.map((video) => (
+                  <StaggerItem key={video.id}>
                   <a
                     key={video.id}
                     href={video.videoUrl}
@@ -334,8 +345,9 @@ export default async function HomePage({
                       </p>
                     </div>
                   </a>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerChildren>
             )}
 
             <div className="mt-8 sm:hidden">

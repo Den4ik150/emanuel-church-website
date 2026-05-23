@@ -44,7 +44,7 @@ export function PageHero({ label, title, subtitle, backHref, backLabel }: Props)
               {label}
             </p>
           )}
-          <h1 className="text-3xl font-bold text-white sm:text-4xl">{title}</h1>
+          <h1 className="font-serif text-3xl font-bold text-white sm:text-4xl">{title}</h1>
           {subtitle && (
             <p className="mt-2 text-base text-white/65">{subtitle}</p>
           )}
