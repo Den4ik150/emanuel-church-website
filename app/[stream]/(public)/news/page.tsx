@@ -6,6 +6,7 @@ import { Calendar } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
 import { PageHero } from "@/components/shared/PageHero";
+import { StaggerChildren, StaggerItem } from "@/components/shared/Animate";
 import { getPublishedNews } from "@/server/queries/news";
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
@@ -38,12 +39,12 @@ export default async function NewsPage({ params }: { params: Promise<{ stream: s
           {posts.length === 0 ? (
             <div className="py-16 text-center text-gray-400">{t.news.noNews}</div>
           ) : (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <StaggerChildren className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
+                <StaggerItem key={post.id}>
                 <Link
-                  key={post.id}
                   href={`/${stream}/news/${post.slug}`}
-                  className="group overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gold/40"
+                  className="group block overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gold/40"
                 >
                   <div className="relative flex aspect-video items-center justify-center overflow-hidden bg-gray-100">
                     {post.coverImageUrl ? (
@@ -75,8 +76,9 @@ export default async function NewsPage({ params }: { params: Promise<{ stream: s
                     </div>
                   </div>
                 </Link>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerChildren>
           )}
         </Container>
       </Section>

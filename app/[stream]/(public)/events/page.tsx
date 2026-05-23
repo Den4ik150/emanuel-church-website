@@ -5,6 +5,7 @@ import { Calendar, Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
 import { PageHero } from "@/components/shared/PageHero";
+import { StaggerChildren, StaggerItem } from "@/components/shared/Animate";
 import { getPublishedEvents } from "@/server/queries/events";
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
@@ -27,10 +28,10 @@ export default async function EventsPage({ params }: { params: Promise<{ stream:
           {events.length === 0 ? (
             <div className="py-16 text-center text-gray-400">{t.events.noEvents}</div>
           ) : (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <StaggerChildren className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {events.map((event) => (
+                <StaggerItem key={event.id}>
                 <div
-                  key={event.id}
                   className="flex flex-col overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gold/40"
                 >
                   <div className="flex aspect-video items-center justify-center bg-gray-100">
@@ -69,8 +70,9 @@ export default async function EventsPage({ params }: { params: Promise<{ stream:
                     </div>
                   </div>
                 </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerChildren>
           )}
         </Container>
       </Section>

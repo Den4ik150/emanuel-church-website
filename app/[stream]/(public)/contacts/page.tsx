@@ -5,6 +5,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { MapPin, Phone, Mail, Instagram, Send, Youtube, Facebook } from "lucide-react";
 import { ContactForm } from "@/features/contacts/ContactForm";
 import { PrayerRequestForm } from "@/features/prayer-requests/PrayerRequestForm";
+import { FadeIn } from "@/components/shared/Animate";
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
 import { YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
@@ -26,9 +27,9 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
       <Section>
         <Container>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-            <div className="space-y-8">
+            <FadeIn direction="left" className="space-y-8">
               <div>
-                <h2 className="mb-5 text-xl font-bold text-gray-900">{t.contacts.formTitle}</h2>
+                <h2 className="mb-5 font-serif text-xl font-bold text-gray-900">{t.contacts.pageTitle}</h2>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
@@ -94,11 +95,11 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
                   Открыть в Google Maps
                 </a>
               </div>
-            </div>
-            <div>
-              <h2 className="mb-5 text-xl font-bold text-gray-900">{t.contacts.formTitle}</h2>
+            </FadeIn>
+            <FadeIn delay={0.15}>
+              <h2 className="mb-5 font-serif text-xl font-bold text-gray-900">{t.contacts.formTitle}</h2>
               <ContactForm stream={streamEnum} lang={streamToLang(stream)} />
-            </div>
+            </FadeIn>
           </div>
         </Container>
       </Section>
@@ -106,15 +107,15 @@ export default async function ContactsPage({ params }: { params: Promise<{ strea
       <div className="bg-gray-50">
         <Section>
           <Container>
-            <div className="mx-auto max-w-2xl">
+            <FadeIn className="mx-auto max-w-2xl">
               <div className="mb-8 text-center">
-                <h2 className="text-2xl font-bold text-gray-900">{t.contacts.prayerTitle}</h2>
+                <h2 className="font-serif text-2xl font-bold text-gray-900">{t.contacts.prayerTitle}</h2>
                 <p className="mt-3 text-gray-500">{t.contacts.prayerText}</p>
               </div>
               <div className="rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
                 <PrayerRequestForm stream={streamEnum} lang={streamToLang(stream)} />
               </div>
-            </div>
+            </FadeIn>
           </Container>
         </Section>
       </div>

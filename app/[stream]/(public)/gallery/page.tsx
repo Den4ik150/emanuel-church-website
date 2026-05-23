@@ -6,6 +6,7 @@ import { ImageIcon } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
 import { PageHero } from "@/components/shared/PageHero";
+import { StaggerChildren, StaggerItem } from "@/components/shared/Animate";
 import { getPublishedAlbums } from "@/server/queries/gallery";
 import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
@@ -29,12 +30,12 @@ export default async function GalleryPage({ params }: { params: Promise<{ stream
           {albums.length === 0 ? (
             <div className="py-16 text-center text-gray-400">{t.gallery.noAlbums}</div>
           ) : (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <StaggerChildren className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {albums.map((album) => (
+                <StaggerItem key={album.id}>
                 <Link
-                  key={album.id}
                   href={`/${stream}/gallery/${album.slug}`}
-                  className="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gold/40"
+                  className="group block cursor-pointer overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gold/40"
                 >
                   <div className="relative flex aspect-video items-center justify-center bg-gray-100">
                     {album.coverImageUrl ? (
@@ -57,8 +58,9 @@ export default async function GalleryPage({ params }: { params: Promise<{ stream
                     </p>
                   </div>
                 </Link>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerChildren>
           )}
         </Container>
       </Section>

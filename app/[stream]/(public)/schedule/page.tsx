@@ -5,6 +5,7 @@ import { Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
 import { PageHero } from "@/components/shared/PageHero";
+import { FadeIn, StaggerChildren, StaggerItem } from "@/components/shared/Animate";
 import { getActiveScheduleItems } from "@/server/queries/schedule";
 import { getT, streamToLang, type Translations } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
@@ -40,15 +41,15 @@ export default async function SchedulePage({ params }: { params: Promise<{ strea
           {items.length === 0 ? (
             <div className="py-16 text-center text-gray-400">{t.schedule.noItems}</div>
           ) : (
-            <div className="max-w-2xl space-y-8">
+            <StaggerChildren className="max-w-2xl space-y-8">
               {sortedDays.map((dayKey) => (
-                <div key={dayKey}>
-                  <h2 className="mb-4 border-b border-gray-100 pb-2 text-lg font-bold text-gray-900">
+                <StaggerItem key={dayKey}>
+                  <h2 className="mb-4 border-b border-gray-100 pb-2 font-serif text-lg font-bold text-gray-900">
                     {t.weekdays[dayKey as keyof Translations["weekdays"]] ?? dayKey}
                   </h2>
                   <div className="space-y-3">
                     {grouped[dayKey].map((item) => (
-                      <div key={item.id} className="flex gap-4 rounded-xl border border-gray-200 p-5">
+                      <div key={item.id} className="flex gap-4 rounded-xl border border-gray-200 p-5 transition-colors hover:border-gold/30">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
                           <Clock className="h-5 w-5 text-gold" />
                         </div>
@@ -72,9 +73,9 @@ export default async function SchedulePage({ params }: { params: Promise<{ strea
                       </div>
                     ))}
                   </div>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerChildren>
           )}
         </Container>
       </Section>

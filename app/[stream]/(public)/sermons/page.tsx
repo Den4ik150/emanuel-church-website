@@ -4,6 +4,7 @@ import { Youtube } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
 import { PageHero } from "@/components/shared/PageHero";
+import { StaggerChildren, StaggerItem, FadeIn } from "@/components/shared/Animate";
 import { getYouTubeVideos, YOUTUBE_CHANNEL_URLS, YOUTUBE_CHANNEL_AVATARS } from "@/lib/youtube";
 import { getT, streamToLang } from "@/lib/translations";
 import { isValidStream } from "@/lib/stream";
@@ -40,14 +41,14 @@ export default async function SermonsPage({
               {t.sermons.noSermons}
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <StaggerChildren className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {videos.map((video) => (
+                <StaggerItem key={video.id}>
                 <a
-                  key={video.id}
                   href={video.videoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group overflow-hidden rounded-2xl bg-white shadow-md shadow-gray-200/60 transition-all hover:-translate-y-1 hover:shadow-xl"
+                  className="group block overflow-hidden rounded-2xl bg-white shadow-md shadow-gray-200/60 transition-all hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative aspect-video overflow-hidden bg-gray-100">
                     <Image
@@ -72,13 +73,14 @@ export default async function SermonsPage({
                     </p>
                   </div>
                 </a>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerChildren>
           )}
 
           {/* Link to full channel */}
           {videos.length > 0 && (
-            <div className="mt-12 text-center">
+            <FadeIn className="mt-12 text-center">
               <a
                 href={channelUrl}
                 target="_blank"
@@ -86,9 +88,9 @@ export default async function SermonsPage({
                 className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-7 py-3 text-sm font-semibold text-gray-700 transition-all hover:border-red-300 hover:text-red-600"
               >
                 <Youtube className="h-4 w-4 text-red-500" />
-                Все видео на YouTube
+                {t.home.sermonsAllLink}
               </a>
-            </div>
+            </FadeIn>
           )}
         </Container>
       </Section>
