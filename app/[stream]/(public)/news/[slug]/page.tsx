@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
 import { Container } from "@/components/shared/Container";
@@ -15,6 +16,24 @@ function formatDate(date: Date | null, locale: string) {
 
 function isVideo(url: string) {
   return url.includes("/video/upload/") || url.endsWith(".mp4") || url.endsWith(".mov");
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ stream: string; slug: string }>;
+}): Promise<Metadata> {
+  const { stream, slug } = await params;
+  const streamEnum = toStreamEnum(stream);
+  const post = await getPublishedNewsBySlug(slug, streamEnum);
+  if (!post) return {};
+  return {
+    title: post.title,
+    description: post.excerpt ?? undefined,
+    openGraph: post.coverImageUrl && !post.coverImageUrl.includes("/video/upload/")
+      ? { images: [{ url: post.coverImageUrl }] }
+      : undefined,
+  };
 }
 
 export default async function NewsPostPage({

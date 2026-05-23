@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ImageIcon } from "lucide-react";
@@ -14,6 +15,12 @@ import { toStreamEnum, isValidStream } from "@/lib/stream";
 function formatDate(date: Date | null, locale: string) {
   if (!date) return null;
   return date.toLocaleDateString(locale, { month: "long", year: "numeric" });
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ stream: string }> }): Promise<Metadata> {
+  const { stream } = await params;
+  const t = getT(streamToLang(stream));
+  return { title: t.gallery.pageTitle, description: t.gallery.pageSubtitle };
 }
 
 export default async function GalleryPage({ params }: { params: Promise<{ stream: string }> }) {

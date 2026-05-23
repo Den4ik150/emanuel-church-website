@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
@@ -13,6 +14,12 @@ import { toStreamEnum, isValidStream } from "@/lib/stream";
 const WEEKDAY_ORDER_KEYS: (keyof Translations["weekdays"])[] = [
   "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
 ];
+
+export async function generateMetadata({ params }: { params: Promise<{ stream: string }> }): Promise<Metadata> {
+  const { stream } = await params;
+  const t = getT(streamToLang(stream));
+  return { title: t.schedule.pageTitle, description: t.schedule.pageSubtitle };
+}
 
 export default async function SchedulePage({ params }: { params: Promise<{ stream: string }> }) {
   const { stream } = await params;

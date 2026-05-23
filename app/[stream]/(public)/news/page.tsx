@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
@@ -23,6 +24,12 @@ function getCoverThumb(url: string) {
       .replace(/\.mp4$/, ".jpg");
   }
   return url;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ stream: string }> }): Promise<Metadata> {
+  const { stream } = await params;
+  const t = getT(streamToLang(stream));
+  return { title: t.news.pageTitle, description: t.news.pageSubtitle };
 }
 
 export default async function NewsPage({ params }: { params: Promise<{ stream: string }> }) {

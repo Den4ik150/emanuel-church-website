@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Youtube } from "lucide-react";
@@ -15,6 +16,12 @@ function formatDate(date: Date, locale: string) {
     month: "long",
     year: "numeric",
   });
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ stream: string }> }): Promise<Metadata> {
+  const { stream } = await params;
+  const t = getT(streamToLang(stream));
+  return { title: t.sermons.pageTitle, description: t.sermons.pageSubtitle };
 }
 
 export default async function SermonsPage({

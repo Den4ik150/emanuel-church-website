@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
@@ -10,6 +11,12 @@ import { getT, streamToLang } from "@/lib/translations";
 import { toStreamEnum, isValidStream } from "@/lib/stream";
 import { YOUTUBE_CHANNEL_URLS } from "@/lib/youtube";
 import { SOCIAL } from "@/lib/social";
+
+export async function generateMetadata({ params }: { params: Promise<{ stream: string }> }): Promise<Metadata> {
+  const { stream } = await params;
+  const t = getT(streamToLang(stream));
+  return { title: t.contacts.pageTitle, description: t.contacts.pageSubtitle };
+}
 
 export default async function ContactsPage({ params }: { params: Promise<{ stream: string }> }) {
   const { stream } = await params;

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
 import { Section } from "@/components/shared/Section";
@@ -8,6 +9,12 @@ const content = {
   ro: { label: "Istoria noastră", title: "Istoria Bisericii", subtitle: "De unde am pornit și unde mergem" },
   ru: { label: "История", title: "История церкви", subtitle: "Откуда мы пришли и куда идём" },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ stream: string }> }): Promise<Metadata> {
+  const { stream } = await params;
+  const c = content[stream as "ro" | "ru"];
+  return { title: c?.title, description: c?.subtitle };
+}
 
 export default async function HistoryPage({ params }: { params: Promise<{ stream: string }> }) {
   const { stream } = await params;

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/shared/Container";
@@ -40,6 +41,12 @@ const content = {
     pastorBio: "Пастор русского потока церкви Эммануил в Бельцах.",
   },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ stream: string }> }): Promise<Metadata> {
+  const { stream } = await params;
+  const c = content[stream as "ro" | "ru"];
+  return { title: c?.label, description: c?.subtitle };
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ stream: string }> }) {
   const { stream } = await params;

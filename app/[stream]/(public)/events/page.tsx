@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
@@ -12,6 +13,12 @@ import { toStreamEnum, isValidStream } from "@/lib/stream";
 
 function formatDate(date: Date, locale: string) {
   return date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ stream: string }> }): Promise<Metadata> {
+  const { stream } = await params;
+  const t = getT(streamToLang(stream));
+  return { title: t.events.pageTitle, description: t.events.pageSubtitle };
 }
 
 export default async function EventsPage({ params }: { params: Promise<{ stream: string }> }) {
