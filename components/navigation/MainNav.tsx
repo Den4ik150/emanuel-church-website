@@ -19,10 +19,10 @@ export function MainNav({ items }: Props) {
           key={item.href}
           href={item.href}
           className={cn(
-            "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+            "px-3 py-1.5 text-sm font-medium rounded-full transition-colors",
             pathname === item.href
-              ? "text-gold"
-              : "text-gray-600 hover:text-gray-900"
+              ? "bg-gold/10 text-gold"
+              : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
           )}
         >
           {item.label}
